@@ -1,6 +1,5 @@
-package tests;
+package tmp.groovytests;
 
-import de.neyeon.feathry.domain.Person;
 import org.hibernate.SessionFactory;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 

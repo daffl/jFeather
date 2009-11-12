@@ -15,6 +15,9 @@
 		<dependency org="javassist" name="javassist" rev="3.4.GA" conf="runtime"/>
 		<dependency org="mysql" name="mysql-connector-java" rev="5.1.10" conf="runtime"/>
         <!--
+		<dependency org="org.springframework.security" name="spring-security-core" rev="2.0.5.RELEASE" conf="runtime" transitive="">
+			<exclude org="org.springramework" />
+		</dependency>
         <dependency org="hsqldb" name="hsqldb" rev="1.8.0.5" conf="runtime"/>
         <dependency org="postgresql" name="postgresql" rev="8.3-603.jdbc3" conf="runtime"/>
         -->

@@ -1,8 +1,7 @@
-package tests;
+package tmp.groovytests;
 
 import grails.spring.BeanBuilder;
 
-import de.neyeon.feathry.domain.Person;
 import org.codehaus.groovy.grails.orm.hibernate.ConfigurableLocalSessionFactoryBean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;

@@ -1,4 +1,4 @@
-package de.neyeon.feathry.domain;
+package tmp.groovytests;
 
 import grails.persistence.Entity;
 
