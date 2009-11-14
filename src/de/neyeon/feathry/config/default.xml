@@ -9,6 +9,19 @@
 		<property name="userDetailsService">
 			<bean class="de.neyeon.feathry.user.GormUserService" />
 		</property>
+		<property name="passwordEncoder">
+			<bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
+		</property>
+		<property name="userCache">
+			<bean class="de.neyeon.feathry.cache.UserCacheService" />
+		</property>
 	</bean>
-
+		
+	<bean id="cache" class="de.neyeon.feathry.cache.EhCacheService">
+		<constructor-arg>
+		<list>
+			<bean class="de.neyeon.feathry.cache.EhCacheConfiguration"></bean>			
+		</list>			
+		</constructor-arg>
+	</bean>
 </beans>

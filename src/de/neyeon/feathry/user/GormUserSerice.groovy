@@ -15,5 +15,6 @@ class GormUserService implements UserDetailsService
 	UserDetails loadUserByUsername(String login) throws UsernameNotFoundException, DataAccessException
 	{
 		User.findByUsername(login)
+		// TODO map to userdetails
 	}
 }

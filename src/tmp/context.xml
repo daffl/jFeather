@@ -19,6 +19,7 @@
         <property name="hibernateProperties">
             <util:map>
                 <entry key="hibernate.hbm2ddl.auto" value="create"/>
+                <entry key="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" /> 
             </util:map>
         </property>
     </gorm:sessionFactory>

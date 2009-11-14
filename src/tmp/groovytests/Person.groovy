@@ -1,5 +1,8 @@
 package tmp.groovytests;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import grails.persistence.Entity;
 
 @Entity
