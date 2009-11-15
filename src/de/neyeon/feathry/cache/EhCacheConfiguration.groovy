@@ -20,4 +20,5 @@ class EhCacheConfiguration
 		BootstrapCacheLoader bootstrapCacheLoader
 		int maxElementsOnDisk
 		int diskSpoolBufferSizeMB
+		boolean clearOnFlush
 }

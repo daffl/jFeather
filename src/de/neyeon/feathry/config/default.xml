@@ -2,26 +2,39 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-	
-	<!-- See http://static.springsource.org/spring-security/site/docs/3.0.x/reference/core-services.html -->
+
+	<!--
+		See
+		http://static.springsource.org/spring-security/site/docs/3.0.x/reference/core-services.html
+	-->
 	<bean id="daoAuthenticationProvider"
 		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<property name="userDetailsService">
 			<bean class="de.neyeon.feathry.user.GormUserService" />
 		</property>
 		<property name="passwordEncoder">
-			<bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
-		</property>
-		<property name="userCache">
-			<bean class="de.neyeon.feathry.cache.UserCacheService" />
+			<bean
+				class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
 		</property>
 	</bean>
-		
-	<bean id="cache" class="de.neyeon.feathry.cache.EhCacheService">
-		<constructor-arg>
-		<list>
-			<bean class="de.neyeon.feathry.cache.EhCacheConfiguration"></bean>			
-		</list>			
-		</constructor-arg>
+
+	<!-- Cache configuration configures a EhCacheService for caching -->
+	<bean id="cache" class="de.neyeon.feathry.cache.GrEhCacheService" scope="singleton">
+		<property name="defaultCache">
+			<bean class="de.neyeon.feathry.cache.EhCacheConfiguration">
+				<property name="name" value="de.neyeon.feathry.cache" />
+				<property name="maxElementsInMemory" value="20000" />
+				<property name="timeToLiveSeconds" value="10" />
+				<property name="timeToIdleSeconds" value="5" />
+			</bean>
+		</property>
+		<property name="userCache">
+			<bean class="de.neyeon.feathry.cache.EhCacheConfiguration">
+				<property name="name" value="de.neyeon.feathry.users" />
+				<property name="maxElementsInMemory" value="500" />
+				<property name="timeToLiveSeconds" value="120" />
+				<property name="timeToIdleSeconds" value="60" />
+			</bean>
+		</property>
 	</bean>
 </beans>
