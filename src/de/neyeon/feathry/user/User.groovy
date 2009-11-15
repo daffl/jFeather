@@ -1,5 +1,7 @@
 package de.neyeon.feathry.user;
 
+import org.hibernate.annotations.Cache;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import grails.persistence.Entity;
 
 
@@ -11,8 +13,8 @@ class User
 	Date passwordExpiry;
 	Set<Group> groups;
 	
-	public void setPassword(String password)
+	public void setPassword(String pw)
 	{
-		this.password = password;
+		password = new ShaPasswordEncoder().encodePassword(pw, null)
 	}
 }

@@ -14,7 +14,7 @@ public interface CacheService
 	 * @param id The key of the object stored in the cache.
 	 * @return The stored object, <code>null</code> if the object was not fount
 	 */
-	public Object get(Object id);
+	public Object get(Object id);	
 	/**
 	 * Get an object with given id from a cache region. 
 	 * @param regionName Name of the cache region

@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:gorm="http://grails.org/schema/gorm"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-2.5.xsd
+						http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd http://grails.org/schema/gorm
+						http://grails.org/schema/gorm/gorm.xsd http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util-2.0.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 	<!--
-		See
-		http://static.springsource.org/spring-security/site/docs/3.0.x/reference/core-services.html
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"> <property name="url"
+		value="jdbc:mysql://localhost/gorm" /> <property name="username" value="gorm" /> <property
+		name="password" value="test123" /> <property name="driverClassName" value="com.mysql.jdbc.Driver"
+		/> </bean> <gorm:sessionFactory base-package="de.neyeon.feathry.domain"
+		data-source-ref="dataSource" message-source-ref="messageSource"> <property
+		name="hibernateProperties"> <util:map> <entry key="hibernate.hbm2ddl.auto" value="create" />
+		<entry key="hibernate.cache.provider_class"
+		value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" /> </util:map> </property>
+		</gorm:sessionFactory>
 	-->
-	<bean id="daoAuthenticationProvider"
-		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+
+	<!--
+		See http://static.springsource.org/spring-security/site/docs/3.0.x/reference/core-services.html
+	-->
+	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<property name="userDetailsService">
 			<bean class="de.neyeon.feathry.user.GormUserService" />
 		</property>
 		<property name="passwordEncoder">
-			<bean
-				class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
+			<bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
 		</property>
+		<property name="userCache" ref="userCache" />
 	</bean>
 
-	<!-- Cache configuration configures a EhCacheService for caching -->
-	<bean id="cache" class="de.neyeon.feathry.cache.GrEhCacheService" scope="singleton">
+	<!-- Cache configuration configures an EhCacheService for caching -->
+	<bean id="cache" class="de.neyeon.feathry.cache.EhCacheService">
 		<property name="defaultCache">
+			<!-- This is the definition for the default cache -->
 			<bean class="de.neyeon.feathry.cache.EhCacheConfiguration">
 				<property name="name" value="de.neyeon.feathry.cache" />
 				<property name="maxElementsInMemory" value="20000" />
@@ -29,6 +48,7 @@
 			</bean>
 		</property>
 		<property name="userCache">
+			<!-- The user cache stores up to 500 users for up to 2 minutes -->
 			<bean class="de.neyeon.feathry.cache.EhCacheConfiguration">
 				<property name="name" value="de.neyeon.feathry.users" />
 				<property name="maxElementsInMemory" value="500" />
@@ -36,5 +56,10 @@
 				<property name="timeToIdleSeconds" value="60" />
 			</bean>
 		</property>
+	</bean>
+	<!-- User cache for Spring Security User caching -->
+	<bean id="userCache" class="de.neyeon.feathry.cache.UserCacheService">
+		<property name="userCacheName" value="de.neyeon.feathry.users" />
+		<property name="cache" ref="cache" />
 	</bean>
 </beans>

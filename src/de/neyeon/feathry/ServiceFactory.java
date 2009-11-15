@@ -2,8 +2,10 @@ package de.neyeon.feathry;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.core.userdetails.UserCache;
 
 import de.neyeon.feathry.cache.CacheService;
+import de.neyeon.feathry.cache.UserCacheService;
 
 public class ServiceFactory
 {
@@ -29,5 +31,10 @@ public class ServiceFactory
 	public CacheService getCache()
 	{
 		return (CacheService) context.getBean("cache");
+	}
+	
+	public UserCache getUserCache()
+	{
+		return (UserCache)context.getBean("userCache");
 	}
 }

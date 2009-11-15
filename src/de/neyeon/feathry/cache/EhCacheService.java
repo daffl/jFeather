@@ -1,5 +1,6 @@
 package de.neyeon.feathry.cache;
 
+import groovy.lang.Closure;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -67,6 +68,37 @@ public class EhCacheService implements CacheService
 	public Object get(Object id)
 	{
 		return get(getDefaultCacheName(), id);
+	}
+	
+	/**
+	 * Get an object with given id. Execute a closure if the object hasn't been found.
+	 * The return value of the closure will be stored in the cache under the given key.
+	 * @param id
+	 * @param cl
+	 * @return
+	 */
+	public Object get(Object id, Closure cl)
+	{
+		return get(getDefaultCacheName(), id, cl);
+	}
+	
+	/**
+	 * Get an object with given id. Execute a closure if the object hasn't been found.
+	 * The return value of the closure will be stored in the cache under the given key. 
+	 * @param regionName
+	 * @param id
+	 * @param cl
+	 * @return
+	 */
+	public Object get(String regionName, Object id, Closure cl)
+	{
+		Object result = get(regionName, id);
+		if(result == null)
+		{
+			result = cl.call();
+			put(regionName, id, result);
+		}		
+		return result;	
 	}
 
 	@Override

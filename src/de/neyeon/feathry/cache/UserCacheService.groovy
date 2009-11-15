@@ -7,9 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 class UserCacheService implements UserCache
 {
-	@Autowired
-	CacheService cache;
-	String userCacheName;
+	CacheService cache
+	String userCacheName
 	
 	UserDetails getUserFromCache(String username)
 	{
@@ -23,6 +22,6 @@ class UserCacheService implements UserCache
 	
 	void removeUserFromCache(String username)
 	{
-		cache.remove(username)
+		cache.remove(userCacheName, username)
 	}
 }
