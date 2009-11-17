@@ -5,7 +5,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.userdetails.UserCache;
 
 import de.neyeon.feathry.cache.CacheService;
-import de.neyeon.feathry.cache.UserCacheService;
 
 public class ServiceFactory
 {

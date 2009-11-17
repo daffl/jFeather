@@ -25,7 +25,6 @@
 
 	<!--
 		See http://static.springsource.org/spring-security/site/docs/3.0.x/reference/core-services.html
-	-->
 	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<property name="userDetailsService">
 			<bean class="de.neyeon.feathry.user.GormUserService" />
@@ -35,31 +34,18 @@
 		</property>
 		<property name="userCache" ref="userCache" />
 	</bean>
+	-->
 
 	<!-- Cache configuration configures an EhCacheService for caching -->
 	<bean id="cache" class="de.neyeon.feathry.cache.EhCacheService">
-		<property name="defaultCache">
-			<!-- This is the definition for the default cache -->
-			<bean class="de.neyeon.feathry.cache.EhCacheConfiguration">
-				<property name="name" value="de.neyeon.feathry.cache" />
-				<property name="maxElementsInMemory" value="20000" />
-				<property name="timeToLiveSeconds" value="10" />
-				<property name="timeToIdleSeconds" value="5" />
-			</bean>
-		</property>
-		<property name="userCache">
-			<!-- The user cache stores up to 500 users for up to 2 minutes -->
-			<bean class="de.neyeon.feathry.cache.EhCacheConfiguration">
-				<property name="name" value="de.neyeon.feathry.users" />
-				<property name="maxElementsInMemory" value="500" />
-				<property name="timeToLiveSeconds" value="120" />
-				<property name="timeToIdleSeconds" value="60" />
-			</bean>
-		</property>
+		<constructor-arg value="de/neyeon/feathry/config/ehcache.xml" />
+		<property name="userCacheName" value="feathry.users" />
+		<property name="defaultCacheName" value="feathry.main" />
 	</bean>
+	
 	<!-- User cache for Spring Security User caching -->
 	<bean id="userCache" class="de.neyeon.feathry.cache.UserCacheService">
-		<property name="userCacheName" value="de.neyeon.feathry.users" />
+		<property name="userCacheName" value="feathry.users" />
 		<property name="cache" ref="cache" />
 	</bean>
 </beans>

@@ -1,7 +1,6 @@
 package de.neyeon.feathry.cache;
 
 import groovy.lang.Closure;
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
@@ -11,59 +10,11 @@ public class EhCacheService implements CacheService
 	protected String defaultCacheName;
 	protected String userCacheName;
 
-	public EhCacheService()
+	public EhCacheService(String resourceName)
 	{
-		manager = CacheManager.create();
+		manager = new CacheManager(getClass().getClassLoader().getResourceAsStream(resourceName));
 	}
 
-	public String getDefaultCacheName()
-	{
-		return defaultCacheName;
-	}
-
-	public String getUserCacheName()
-	{
-		return userCacheName;
-	}
-
-	public CacheManager getManager()
-	{
-		return manager;
-	}
-	
-	public void setDefaultCache(EhCacheConfiguration config)
-	{
-		this.addCache(config);
-		this.defaultCacheName = config.getName();
-	}
-
-	public void setUserCache(EhCacheConfiguration config)
-	{
-		this.addCache(config);
-		this.userCacheName = config.getName();
-	}
-
-	public Cache addCache(EhCacheConfiguration config)
-	{
-		Cache cache = new Cache(config.getName(), 
-				config.getMaxElementsInMemory(),
-				config.getMemoryStoreEvictionPolicy(),
-				config.getOverflowToDisk(),
-				config.getDiskStorePath(),
-				config.getEternal(),
-				config.getTimeToLiveSeconds(),
-				config.getTimeToIdleSeconds(),
-				config.getDiskPersistent(),
-				config.getDiskExpiryThreadIntervalSeconds(),
-				config.getRegisteredEventListeners(),
-				config.getBootstrapCacheLoader(),
-				config.getMaxElementsOnDisk(),
-				config.getDiskSpoolBufferSizeMB(),
-				config.getClearOnFlush());
-		manager.addCache(cache);
-		return manager.getCache(config.getName());
-	}
-	
 	@Override
 	public Object get(Object id)
 	{
@@ -134,16 +85,41 @@ public class EhCacheService implements CacheService
 		manager.getCache(regionName).remove(id);
 	}
 	
-	public void shutdown()
-	{
-		manager.shutdown();
-	}
-	
 	@Override
 	protected void finalize() throws Throwable
 	{
 		super.finalize();
 		shutdown();
 	}
+	
+	public void shutdown()
+	{
+		manager.shutdown();
+	}
+	
+	public String getDefaultCacheName()
+	{
+		return defaultCacheName;
+	}
+
+	public void setDefaultCacheName(String defaultCacheName)
+	{
+		this.defaultCacheName = defaultCacheName;
+	}
+
+	public String getUserCacheName()
+	{
+		return userCacheName;
+	}
+
+	public void setUserCacheName(String userCacheName)
+	{
+		this.userCacheName = userCacheName;
+	}
+
+	public CacheManager getManager()
+	{
+		return manager;
+	}	
 
 }

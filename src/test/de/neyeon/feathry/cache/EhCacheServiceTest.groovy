@@ -1,13 +1,11 @@
 package test.de.neyeon.feathry.cache;
 
 import net.sf.ehcache.Cache;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.neyeon.feathry.ServiceFactory;
 import de.neyeon.feathry.cache.CacheService;
-import de.neyeon.feathry.cache.EhCacheConfiguration;
 import de.neyeon.feathry.cache.EhCacheService;
 
 class EhCacheServiceTest
@@ -29,17 +27,6 @@ class EhCacheServiceTest
 	}
 
 	@Test
-	public void testAddCache()
-	{
-		def config = new EhCacheConfiguration(name:"TestCache", maxElementsInMemory : 10, timeToLiveSeconds : 10, timeToIdleSeconds : 5)
-		Cache c = cache.addCache(config)
-		assert c.name == "TestCache"
-		assert c.getCacheConfiguration().getMaxElementsInMemory() == 10
-		assert c.getCacheConfiguration().timeToLiveSeconds == 10
-		assert c.getCacheConfiguration().timeToIdleSeconds == 5
-	}
-
-	@Test
 	public void testGetObject()
 	{
 		cache.put("Test", "Hello world")
@@ -49,6 +36,7 @@ class EhCacheServiceTest
 	@Test
 	public void testGetStringObject()
 	{
+		assert cache.userCacheName != null
 		cache.put(cache.userCacheName, "Test", "Hello world")
 		assert cache.get(cache.userCacheName, "Test") == "Hello world"
 	}
