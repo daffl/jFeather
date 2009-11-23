@@ -67,5 +67,10 @@ class EhCacheServiceTest
 		}
 		assert res == "Hello world"
 		assert cache.get("Test") == "Hello world" 
-	}	
+	}
+	
+	public void testExists()
+	{
+		assert cache.exists("Test");
+	}
 }

@@ -11,29 +11,32 @@
 						http://www.springframework.org/schema/tx
 						http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<!--
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"> <property name="url"
-		value="jdbc:mysql://localhost/gorm" /> <property name="username" value="gorm" /> <property
-		name="password" value="test123" /> <property name="driverClassName" value="com.mysql.jdbc.Driver"
-		/> </bean> <gorm:sessionFactory base-package="de.neyeon.feathry.domain"
-		data-source-ref="dataSource" message-source-ref="messageSource"> <property
-		name="hibernateProperties"> <util:map> <entry key="hibernate.hbm2ddl.auto" value="create" />
-		<entry key="hibernate.cache.provider_class"
-		value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" /> </util:map> </property>
-		</gorm:sessionFactory>
-	-->
-
+	<!-- 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url" value="jdbc:mysql://localhost/gorm" />
+		<property name="username" value="gorm" />
+		<property name="password" value="test123" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	</bean>
+	
+	<gorm:sessionFactory base-package="de.neyeon.feathry.domain" data-source-ref="dataSource">
+		<property name="hibernateProperties">
+			<util:map>
+				<entry key="hibernate.hbm2ddl.auto" value="create" />
+				<entry key="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" />
+			</util:map>
+		</property>
+	</gorm:sessionFactory>
+ 	-->
+ 	
 	<!--
 		See http://static.springsource.org/spring-security/site/docs/3.0.x/reference/core-services.html
-	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<property name="userDetailsService">
-			<bean class="de.neyeon.feathry.user.GormUserService" />
-		</property>
-		<property name="passwordEncoder">
-			<bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
-		</property>
-		<property name="userCache" ref="userCache" />
-	</bean>
+		<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider"> <property
+		name="userDetailsService"> <bean class="de.neyeon.feathry.user.GormUserService" /> </property>
+		<property name="passwordEncoder"> <bean
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" /> </property>
+		<property name="userCache" ref="userCache" /> </bean>
 	-->
 
 	<!-- Cache configuration configures an EhCacheService for caching -->
@@ -42,10 +45,12 @@
 		<property name="userCacheName" value="feathry.users" />
 		<property name="defaultCacheName" value="feathry.main" />
 	</bean>
-	
+
 	<!-- User cache for Spring Security User caching -->
 	<bean id="userCache" class="de.neyeon.feathry.cache.UserCacheService">
 		<property name="userCacheName" value="feathry.users" />
 		<property name="cache" ref="cache" />
 	</bean>
+	
+	<bean class="de.neyeon.feathry.logging.Log" />
 </beans>

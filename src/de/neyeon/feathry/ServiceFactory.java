@@ -5,6 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.userdetails.UserCache;
 
 import de.neyeon.feathry.cache.CacheService;
+import de.neyeon.feathry.domain.DynamicGormDispatcher;
 
 public class ServiceFactory
 {
@@ -35,5 +36,12 @@ public class ServiceFactory
 	public UserCache getUserCache()
 	{
 		return (UserCache)context.getBean("userCache");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getDynamicGorm(Class<T> cls)
+	{
+		DynamicGormDispatcher dispatcher = new DynamicGormDispatcher();
+		return (T) dispatcher.getInterface(cls);
 	}
 }

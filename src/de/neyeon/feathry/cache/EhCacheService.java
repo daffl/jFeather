@@ -120,6 +120,17 @@ public class EhCacheService implements CacheService
 	public CacheManager getManager()
 	{
 		return manager;
-	}	
+	}
 
+	@Override
+	public boolean exists(Object id)
+	{
+		return exists(defaultCacheName, id);
+	}
+
+	@Override
+	public boolean exists(String regionName, Object key)
+	{
+		return manager.getCache(regionName).isKeyInCache(key);
+	}	
 }

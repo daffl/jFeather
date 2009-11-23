@@ -41,4 +41,6 @@ public interface CacheService
 	 */
 	public void remove(Object id);
 	public void remove(String regionName, Object id);
+	public boolean exists(Object id);	
+	public boolean exists(String regionName, Object key);
 }
