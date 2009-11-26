@@ -4,37 +4,34 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
-import antlr.collections.List;
-
 import java.lang.reflect.Type;
 
 
 class DynamicGormDispatcher
 {
-	private def declaredMethods;
+	protected def declaredMethods;
 	
 	def getInterface(Class<?> cls)
 	{
-		log.debug("Getting interface for ${cls.name}")
 		def map = [:]
-		cls.methods.each() { method ->
-			map."${method.name}" = { Object[] args-> 
-				this.dispatch(method, args)
-			}
-		}		
+		cls.methods.each()
+				{ method ->
+					map."${method.name}" =
+					{ Object[] args-> 
+						this.dispatch(method, args)
+					}
+				}		
 		return map.asType(cls)
 	}
 	
 	def dispatch(Method method, Object[] args)
 	{
-		log.debug("Dispatching ${method.name} with $args")
-
-		// TODO: check if the method called is defined in this class already
-		
+		// TODO develop a naming convention for potential ambigious methods
 		if(method.returnType == void.class)
 		{
-			// A void method is being called lets try to call the method given on the object
-			args.each { it.invokeMethod method.name, null }
+			def obj = args[0] // Object where the method will be called on
+			def argslist = args.length > 1 ? args[1..<args.length] : null
+			obj.invokeMethod method.name, argslist
 		}
 		else if(!method.returnType.primitive)
 		{
@@ -46,7 +43,7 @@ class DynamicGormDispatcher
 				// (assuming we only have one generic argument)
 				cls = ((ParameterizedType)method.getGenericReturnType()).getActualTypeArguments()[0]				
 			}
-			// Invoke the generic method
+			// Invoke the static method
 			return cls.invokeMethod(method.name, args)
 		}
 	}
