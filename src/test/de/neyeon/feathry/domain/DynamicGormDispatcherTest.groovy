@@ -62,6 +62,9 @@ class DynamicGormDispatcherTest
 		assert saveDummy.saved == false
 		ti.save(saveDummy)
 		assert saveDummy.saved == true
+		def saveDummy2 = new MockDomainObject(name : "SaveDummy2")
+		ti.saveAndChangeName(saveDummy2, "SavedDummy")
+		assert saveDummy2 == new MockDomainObject(name : "SavedDummy", saved: true)
 	}
 
 	@Test

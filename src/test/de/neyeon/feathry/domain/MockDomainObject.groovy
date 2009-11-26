@@ -22,6 +22,12 @@ class MockDomainObject
 		saved = true
 	}
 	
+	void saveAndChangeName(String newName)
+	{
+		name = newName
+		saved = true
+	}
+	
 	public String toString()
 	{
 		return name
