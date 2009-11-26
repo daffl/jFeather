@@ -14,19 +14,20 @@ class GormUserService implements UserDetailsService
 	 */
 	UserDetails loadUserByUsername(String login) throws UsernameNotFoundException, DataAccessException
 	{
-		User.findByUsername(login)
-		def authorities = []
+		User usr = User.findByUsername(login)
 		
 		def detailsmap =
 		[
-		 	getAuthorities : {},
-		 	getPassword : {},
-		 	getUsername : {},
+		 	getAuthorities : { usr.roles },
+		 	getPassword : { usr.password },
+		 	getUsername : { usr.username },
 		 	isAccountNonExpired : {},
 		 	isAccountNonLocked : {},
 			isCredentialsNonExpired : {},
 			isEnabled : {}
 		]
+		
+		return detailsmap as UserDetails
 		// TODO map to userdetails
 	}
 }

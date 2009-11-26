@@ -8,10 +8,13 @@ import grails.persistence.Entity;
 @Entity
 class User
 {
-	String username;
-	String password;
-	Date passwordExpiry;
-	Set<Group> groups;
+	static belongsTo = Authority
+	static hasMany = [ roles : Authority ]	
+					
+	String username
+	String password
+	Date passwordExpiry
+	Set<Authority> authorities
 	
 	public void setPassword(String pw)
 	{
