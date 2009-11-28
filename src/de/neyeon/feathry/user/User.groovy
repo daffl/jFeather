@@ -9,15 +9,16 @@ import grails.persistence.Entity;
 class User
 {
 	static belongsTo = Authority
-	static hasMany = [ roles : Authority ]	
+	static hasMany = [ authorities : Authority ]	
 					
 	String username
 	String password
 	Date passwordExpiry
 	Set<Authority> authorities
 	
-	public void setPassword(String pw)
-	{
-		password = new ShaPasswordEncoder().encodePassword(pw, null)
-	}
+// TODO deal with the hashing strategy somewhere
+//	public void setPassword(String pw)
+//	{
+//		password = new ShaPasswordEncoder().encodePassword(pw, null)
+//	}
 }
