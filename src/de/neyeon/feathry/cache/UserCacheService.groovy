@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 class UserCacheService implements UserCache
 {
+	@Autowired
 	CacheService cache
 	String userCacheName
 	

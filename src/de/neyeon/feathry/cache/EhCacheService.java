@@ -8,7 +8,6 @@ public class EhCacheService implements CacheService
 {
 	protected CacheManager manager;
 	protected String defaultCacheName;
-	protected String userCacheName;
 
 	public EhCacheService(String resourceName)
 	{
@@ -105,16 +104,6 @@ public class EhCacheService implements CacheService
 	public void setDefaultCacheName(String defaultCacheName)
 	{
 		this.defaultCacheName = defaultCacheName;
-	}
-
-	public String getUserCacheName()
-	{
-		return userCacheName;
-	}
-
-	public void setUserCacheName(String userCacheName)
-	{
-		this.userCacheName = userCacheName;
 	}
 
 	public CacheManager getManager()
