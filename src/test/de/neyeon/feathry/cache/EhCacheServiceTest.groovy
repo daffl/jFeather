@@ -36,16 +36,15 @@ class EhCacheServiceTest
 	@Test
 	public void testGetStringObject()
 	{
-		assert cache.userCacheName != null
-		cache.put(cache.userCacheName, "Test", "Hello world")
-		assert cache.get(cache.userCacheName, "Test") == "Hello world"
+		cache.put("feathry.users", "Test", "Hello world")
+		assert cache.get("feathry.users", "Test") == "Hello world"
 	}
 
 	@Test
 	public void testPutStringObjectObject()
 	{
-		cache.put(cache.userCacheName, "Test", "Hello world")
-		assert cache.manager.getCache(cache.defaultCacheName).getSize() == 1
+		cache.put("feathry.users", "Test", "Hello world")
+		assert cache.manager.getCache("feathry.users").getSize() == 1
 	}
 
 	@Test
