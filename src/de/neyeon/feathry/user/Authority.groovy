@@ -8,12 +8,10 @@ import grails.persistence.Entity;
 @Entity
 class Authority implements GrantedAuthority
 {
-	static hasMany = [ users : User ]
 	static transients = [ "authority" ]
 	
 	String name
-	Set<User> users
-	Integer level
+	Integer level = 0
 	
 	String getAuthority()
 	{

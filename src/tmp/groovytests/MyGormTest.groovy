@@ -3,6 +3,7 @@ package tmp.groovytests;
 import org.hibernate.SessionFactory;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
+
 class MyGormTest extends AbstractTransactionalDataSourceSpringContextTests {
 	SessionFactory sessionFactory
 	

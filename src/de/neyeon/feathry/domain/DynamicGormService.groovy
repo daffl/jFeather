@@ -1,37 +1,44 @@
 package de.neyeon.feathry.domain;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import grails.persistence.Entity;
+
 import java.util.Collection;
 
 import java.lang.reflect.Type;
 
-
-class DynamicGormDispatcher
-{
-	protected def declaredMethods;
-	
+class DynamicGormService
+{	
 	def getInterface(Class<?> cls)
 	{
 		def map = [:]
 		cls.methods.each()
-				{ method ->
-					map."${method.name}" =
-					{ Object[] args-> 
-						this.dispatch(method, args)
-					}
-				}		
+		{ method ->
+			map."${method.name}" =
+			{ Object[] args-> 
+				this.dispatch(method, args)
+			}
+		}		
 		return map.asType(cls)
 	}
 	
 	def dispatch(Method method, Object[] args)
 	{
-		// TODO develop a naming convention for potential ambigious methods
+		// Default invoker
+		def invoke = { def obj, String methodname, Object[] params ->
+			return obj.invokeMethod(methodname, params)
+		}
+		
+		// TODO: do something with methods that are already implemented
+
 		if(method.returnType == void.class)
 		{
 			def obj = args[0] // Object where the method will be called on
 			def argslist = args.length > 1 ? args[1..<args.length] : null
-			obj.invokeMethod method.name, argslist
+			invoke(obj, method.name, argslist)
 		}
 		else if(!method.returnType.primitive)
 		{
@@ -44,7 +51,7 @@ class DynamicGormDispatcher
 				cls = ((ParameterizedType)method.getGenericReturnType()).getActualTypeArguments()[0]				
 			}
 			// Invoke the static method
-			return cls.invokeMethod(method.name, args)
+			return invoke(cls, method.name, args)
 		}
 	}
 	

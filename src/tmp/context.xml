@@ -7,14 +7,21 @@
  xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://grails.org/schema/gorm http://grails.org/schema/gorm/gorm.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
     
     
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="url" value="jdbc:mysql://localhost/gorm"/>
         <property name="username" value="gorm"/>
         <property name="password" value="test123"/>
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    </bean>
+    </bean> -->
     
-    <gorm:sessionFactory base-package="de.neyeon.feathry.domain" data-source-ref="dataSource"
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:." />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+	
+    <gorm:sessionFactory base-package="tmp.groovytests" data-source-ref="dataSource"
      message-source-ref="messageSource">
         <property name="hibernateProperties">
             <util:map>

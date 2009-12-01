@@ -2,28 +2,25 @@ package test.de.neyeon.feathry.cache;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import de.neyeon.feathry.ServiceFactory;
-import de.neyeon.feathry.cache.CacheService;
 
-class UserCacheServiceTest
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations=["/de/neyeon/feathry/config/default.xml"])
+class UserCacheImplTest
 {
-	private UserCache userCache;
-	
-	@Before
-	public void setUp()
-	{
-		userCache = ServiceFactory.getInstance().getUserCache()	
-	}
+	@Autowired
+	UserCache userCache;
 
 	@Test
 	public void testPutUserInCache()
 	{
-		
 		def impl =
 			[
 				getUsername : { return "Testuser" },

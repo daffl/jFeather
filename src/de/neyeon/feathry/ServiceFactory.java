@@ -1,11 +1,12 @@
 package de.neyeon.feathry;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.userdetails.UserCache;
 
 import de.neyeon.feathry.cache.CacheService;
-import de.neyeon.feathry.domain.DynamicGormDispatcher;
+import de.neyeon.feathry.domain.DynamicGormService;
 
 public class ServiceFactory
 {
@@ -35,13 +36,18 @@ public class ServiceFactory
 	
 	public UserCache getUserCache()
 	{
-		return (UserCache)context.getBean("userCache");
+		return (UserCache) context.getBean("userCache");
+	}
+	
+	public SessionFactory getSessionFactory()
+	{
+		return (SessionFactory) context.getBean("sessionFactory");
 	}
 	
 	@SuppressWarnings("unchecked")
 	public <T> T getDynamicGorm(Class<T> cls)
 	{
-		DynamicGormDispatcher dispatcher = new DynamicGormDispatcher();
+		DynamicGormService dispatcher = new DynamicGormService();
 		return (T) dispatcher.getInterface(cls);
 	}
 }

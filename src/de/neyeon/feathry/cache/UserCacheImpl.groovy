@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-class UserCacheService implements UserCache
+class UserCacheImpl implements UserCache
 {
 	@Autowired
 	CacheService cache

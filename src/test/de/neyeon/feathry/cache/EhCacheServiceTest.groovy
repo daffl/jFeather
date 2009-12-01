@@ -1,24 +1,22 @@
 package test.de.neyeon.feathry.cache;
 
-import net.sf.ehcache.Cache;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.neyeon.feathry.ServiceFactory;
 import de.neyeon.feathry.cache.CacheService;
 import de.neyeon.feathry.cache.EhCacheService;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations=["/de/neyeon/feathry/config/default.xml"])
 class EhCacheServiceTest
 {
-	private EhCacheService cache;
-	
-	@Before
-	public void setUp()
-	{
-		CacheService cs = ServiceFactory.getInstance().getCache();
-		if(cs instanceof EhCacheService)
-			cache = (EhCacheService)cs;
-	}
+	@Autowired
+	CacheService cache
 	
 	@Test
 	public void testEhCacheService()
