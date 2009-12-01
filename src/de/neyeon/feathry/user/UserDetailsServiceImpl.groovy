@@ -23,7 +23,7 @@ class UserDetailsServiceImpl implements UserDetailsService
 		User usr = userService.findByUsername(login)
 		def detailsmap =
 		[
-		 	getAuthorities : { usr.roles },
+		 	getAuthorities : { usr.authorities },
 		 	getPassword : { usr.password },
 		 	getUsername : { usr.username },
 		 	isAccountNonExpired : { true },
