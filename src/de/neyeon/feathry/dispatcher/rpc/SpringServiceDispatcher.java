@@ -14,25 +14,30 @@ import de.neyeon.feathry.dispatcher.Interceptable;
  * @author daff
  *
  */
-public class ServiceDispatcher implements ApplicationContextAware
+public class SpringServiceDispatcher implements ApplicationContextAware, ServiceDispatcher
 {
 	private ApplicationContext context;
 	private String namingPattern;
 	
+	/* (non-Javadoc)
+	 * @see de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher#invoke(de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall)
+	 */
 	public Object invoke(RemoteProcedureCall rpc) throws Throwable
 	{
 		Object service = this.getService(rpc.getServiceName());
-		if(rpc.canDispatchOn(service))
+		try
 		{
-			Method toDispatch = service.getClass().getMethod(rpc.getMethodName(), rpc.getArgumentTypes());
+			Method toDispatch = rpc.getDispatchableMethod(service);
 			return toDispatch.invoke(service, rpc.getArguments());
-		}
-		else if(service instanceof Interceptable)
+		} catch (NoSuchMethodException e)
 		{
-			return ((Interceptable)service).invoke(rpc.getMethodName(), rpc.getArguments());
+			if(service instanceof Interceptable)
+			{
+				return ((Interceptable)service).invoke(rpc.getMethodName(), rpc.getArguments());
+			}
+			else
+				throw e;
 		}
-		else
-			throw new NoSuchMethodException("Can't find method " + rpc.getMethodName());
 	}
 	
 	public Object getService(String serviceName)

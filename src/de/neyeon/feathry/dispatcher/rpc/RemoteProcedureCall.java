@@ -1,9 +1,10 @@
 package de.neyeon.feathry.dispatcher.rpc;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 public final class RemoteProcedureCall
-{	
+{
 	private final String serviceName;
 	private final String methodName;
 	private final Object[] args;
@@ -13,52 +14,48 @@ public final class RemoteProcedureCall
 	{
 		this.serviceName = serviceName;
 		this.methodName = methodName;
-		if(args == null)
+		if (args == null)
 			this.args = new Object[0];
 		else
 			this.args = args;
 	}
-	
+
 	public Class<?>[] getArgumentTypes()
 	{
 		Class<?>[] result = new Class<?>[args.length];
-		for(int i = 0; i < args.length; i++)
+		for (int i = 0; i < args.length; i++)
 		{
 			result[i] = args[i].getClass();
 		}
 		return result;
 	}
-	
-	public boolean canDispatchOn(Object serviceInstance)
+
+	public Method getDispatchableMethod(Object serviceInstance) throws NoSuchMethodException
 	{
-		if(serviceInstance != null) {
-			return this.canDispatchOn(serviceInstance.getClass());
-		} else {
-			return false;
-		}
+		return this.getDispatchableMethod(serviceInstance.getClass());
 	}
-	
-	public boolean canDispatchOn(Class<?> serviceClass)
+
+	public Method getDispatchableMethod(Class<?> cls) throws NoSuchMethodException
 	{
 		try
 		{
-			serviceClass.getMethod(methodName, this.getArgumentTypes());
-			return true;
+			return cls.getMethod(methodName, this.getArgumentTypes());
 		} catch (SecurityException e)
 		{
-			return false;
-		} catch (NoSuchMethodException e)
-		{
-			return false;
+			throw new NoSuchMethodException(
+					"Security exception while trying to access method "
+							+ methodName + " on instance of type "
+							+ cls.getName());
 		}
 	}
 
 	@Override
 	public String toString()
 	{
-		return serviceName + "." + methodName + "(" + Arrays.toString(args) + ")";
+		return serviceName + "." + methodName + "(" + Arrays.toString(args)
+				+ ")";
 	}
-	
+
 	public String getServiceName()
 	{
 		return serviceName;
