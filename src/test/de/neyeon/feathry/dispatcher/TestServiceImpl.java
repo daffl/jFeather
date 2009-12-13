@@ -1,14 +1,26 @@
 package test.de.neyeon.feathry.dispatcher;
 
-public class TestServiceImpl
+import java.util.Arrays;
+
+import de.neyeon.feathry.dispatcher.Interceptable;
+
+public class TestServiceImpl implements TestService, Interceptable
 {
-	public void voidTest()
+	@Override
+	public String hello(String name)
 	{
-		
+		return "Hello " + name;
 	}
-	
-	public void argsTest(String t, Integer x)
+
+	@Override
+	public String hello(String hello, String name)
 	{
-		
+		return hello + " " + name;
+	}
+
+	@Override
+	public Object invoke(String methodName, Object... args)
+	{
+		return methodName + "(" + Arrays.toString(args) + ")";
 	}
 }
