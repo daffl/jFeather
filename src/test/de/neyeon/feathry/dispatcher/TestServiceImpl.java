@@ -4,11 +4,11 @@ public class TestServiceImpl
 {
 	public void voidTest()
 	{
-		System.out.println("Test");
+		
 	}
 	
-	public void argsTest(String t, int x)
+	public void argsTest(String t, Integer x)
 	{
-		System.out.println(t + " : " + x);
+		
 	}
 }
