@@ -2,6 +2,7 @@ package de.neyeon.feathry.dispatcher.rpc;
 
 import java.lang.reflect.Method;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -16,14 +17,16 @@ import de.neyeon.feathry.dispatcher.Interceptable;
  */
 public class SpringServiceDispatcher implements ApplicationContextAware, ServiceDispatcher
 {
-	private ApplicationContext context;
 	private String namingPattern;
+	protected ApplicationContext context;
+	protected Logger log = Logger.getLogger(this.getClass());
 	
 	/* (non-Javadoc)
 	 * @see de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher#invoke(de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall)
 	 */
 	public Object invoke(RemoteProcedureCall rpc) throws Throwable
 	{
+		log.debug("Invoking RPC " + rpc);
 		Object service = this.getService(rpc.getServiceName());
 		try
 		{
@@ -33,6 +36,7 @@ public class SpringServiceDispatcher implements ApplicationContextAware, Service
 		{
 			if(service instanceof Interceptable)
 			{
+				log.debug("Calling invoke(String, Object[]) on Interceptable service");
 				return ((Interceptable)service).invoke(rpc.getMethodName(), rpc.getArguments());
 			}
 			else
