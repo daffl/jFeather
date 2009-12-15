@@ -19,7 +19,7 @@ public class XmlRpcWorkerFactory implements WorkerFactory
 {
 	protected ServiceDispatcher serviceDispatcher;
 	protected XmlRpcServer server;
-
+	
 	/* (non-Javadoc)
 	 * @see de.neyeon.feathry.dispatcher.http.WorkerFactory#create(org.simpleframework.http.Request, org.simpleframework.http.Response)
 	 */
@@ -61,5 +61,4 @@ public class XmlRpcWorkerFactory implements WorkerFactory
 			server.addInvocationHandler(name, handler);
 		}
 	}
-
 }

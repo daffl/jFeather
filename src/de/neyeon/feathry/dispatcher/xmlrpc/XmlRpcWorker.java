@@ -4,9 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.apache.log4j.Logger;
 import org.simpleframework.http.Request;
 import org.simpleframework.http.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import redstone.xmlrpc.XmlRpcDispatcher;
 import de.neyeon.feathry.dispatcher.http.Worker;
@@ -17,10 +18,11 @@ import de.neyeon.feathry.dispatcher.http.Worker;
  */
 public class XmlRpcWorker extends Worker
 {
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	protected XmlRpcDispatcher dispatcher;
 
-	protected XmlRpcWorker(Request request, Response response, XmlRpcDispatcher dispatcher)
-	{
+	public XmlRpcWorker(Request request, Response response, XmlRpcDispatcher dispatcher)
+	{		
 		super(request, response);
 		this.dispatcher = dispatcher;
 	}
@@ -30,7 +32,7 @@ public class XmlRpcWorker extends Worker
 	{
 		try
 		{
-			Logger.getLogger(this.getClass()).debug("XmlRpcWorker started... trying to dispatch the stuff");
+			log.debug("Starting XML-RPC worker thread request from host {}", dispatcher.getCallerIp());
 			Writer out = new OutputStreamWriter(this.getResponse().getOutputStream());
 			InputStream in = this.getRequest().getInputStream();
 			dispatcher.dispatch(in, out);
