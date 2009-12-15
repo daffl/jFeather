@@ -3,16 +3,28 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
-		<!-- does not necessarily have to be the same name as the bean to be exported -->
-		<property name="serviceName" value="AccountService" />
-		<property name="service" ref="accountService" />
-		<property name="serviceInterface" value="example.AccountService" />
-		<!-- defaults to 1099 -->
-		<property name="registryPort" value="1199" />
+	<bean id="threadManager" class="de.neyeon.feathry.dispatcher.ThreadManager">
+	</bean>
+
+	<bean id="serviceDispatcher" class="de.neyeon.feathry.dispatcher.rpc.SpringServiceDispatcher">
+		<!-- TODO set naming pattern -->
 	</bean>
 	
-	<bean id="dispatcherContainer" class="de.neyeon.feathry.dispatcher.http.HttpContainer">
+	<bean id="httpContainer" class="de.neyeon.feathry.dispatcher.http.HttpContainer">
+		<property name="workers">
+			<map>
+				<entry key="xmlrpc" value-ref="xmlRpcWorkerFactory" />
+			</map>
+		</property>
+		<property name="threadManager" ref="threadManager" />
+	</bean>
 	
+	<bean id="xmlRpcWorkerFactory" class="de.neyeon.feathry.dispatcher.xmlrpc.XmlRpcWorkerFactory">
+		<property name="serviceDispatcher" ref="serviceDispatcher" />
+	</bean>
+	
+	<bean id="httpServer" class="de.neyeon.feathry.dispatcher.http.SimpleHttpServer">
+		<property name="container" ref="httpContainer" />
+		<property name="port" value="8080" />
 	</bean>
 </beans>
