@@ -6,8 +6,8 @@
 	<bean id="threadManager" class="de.neyeon.feathry.dispatcher.ThreadManager">
 	</bean>
 
-	<bean id="serviceDispatcher" class="de.neyeon.feathry.dispatcher.rpc.SpringServiceDispatcher">
-		<!-- TODO set naming pattern -->
+	<bean id="serviceDispatcher" class="de.neyeon.feathry.dispatcher.rpc.SpringContextServiceDispatcher">
+		<property name="namingPostfix" value="Service" />
 	</bean>
 	
 	<bean id="httpContainer" class="de.neyeon.feathry.dispatcher.http.HttpContainer">
