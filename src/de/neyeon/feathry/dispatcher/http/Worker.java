@@ -26,4 +26,10 @@ public abstract class Worker implements Runnable
 	
 	@Override
 	public abstract void run();
+	
+	public void handleError(Throwable e)
+	{
+		// TODO handle this properly
+		e.printStackTrace();
+	}
 }
