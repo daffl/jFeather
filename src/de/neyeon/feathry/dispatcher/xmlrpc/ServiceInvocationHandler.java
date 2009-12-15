@@ -2,32 +2,31 @@ package de.neyeon.feathry.dispatcher.xmlrpc;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import redstone.xmlrpc.XmlRpcInvocationHandler;
 import de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall;
 import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
 
 public class ServiceInvocationHandler implements XmlRpcInvocationHandler
 {
-	private final ServiceDispatcher serviceDispatcher;
+	protected final Logger log = Logger.getLogger(this.getClass());
 	
-	public ServiceInvocationHandler(ServiceDispatcher serviceDispatcher)
+	protected final ServiceDispatcher serviceDispatcher;
+	protected final String serviceName;
+	
+	public ServiceInvocationHandler(String serviceName, ServiceDispatcher serviceDispatcher)
 	{
 		this.serviceDispatcher = serviceDispatcher;
+		this.serviceName = serviceName;
 	}
 	
 	@Override
 	@SuppressWarnings("unchecked")
 	public Object invoke(String methodname, List arguments) throws Throwable
 	{
-		String[] split = methodname.split(".");
-		String service = split[0];
-		String method = split[1];
-		RemoteProcedureCall rpc = new RemoteProcedureCall(service, method, arguments.toArray());		
+		log.debug("Handling invocation of " + methodname + " with " + arguments);
+		RemoteProcedureCall rpc = new RemoteProcedureCall(serviceName, methodname, arguments.toArray());		
 		return serviceDispatcher.invoke(rpc);
-	}
-	
-	public ServiceDispatcher getServiceDispatcher()
-	{
-		return serviceDispatcher;
 	}
 }
