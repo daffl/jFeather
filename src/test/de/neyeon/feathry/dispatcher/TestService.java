@@ -4,4 +4,5 @@ public interface TestService
 {
 	public String hello(String name);
 	public String hello(String hello, String name);
+	public TestBean getTestBean(String name, Integer age);
 }

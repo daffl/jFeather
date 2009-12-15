@@ -4,10 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
 	default-autowire="byName">
 
-	<bean class="de.neyeon.feathry.dispatcher.rpc.SpringServiceDispatcher" id="serviceDispatcher">
-		<property name="namingPattern" value="${name}Service" />
-	</bean>
-	
 	<bean id="testService" class="test.de.neyeon.feathry.dispatcher.TestServiceImpl">	
 	</bean>
 </beans>

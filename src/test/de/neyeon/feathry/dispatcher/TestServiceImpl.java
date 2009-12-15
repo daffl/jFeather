@@ -23,4 +23,10 @@ public class TestServiceImpl implements TestService, Interceptable
 	{
 		return methodName + "(" + Arrays.toString(args) + ")";
 	}
+
+	@Override
+	public TestBean getTestBean(String name, Integer age)
+	{
+		return new TestBean(name, age);
+	}
 }

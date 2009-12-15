@@ -17,7 +17,9 @@ import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
 import de.neyeon.feathry.dispatcher.xmlrpc.ServiceInvocationHandler;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/test/de/neyeon/feathry/dispatcher/testcontext.xml"})
+@ContextConfiguration(locations =
+{ "/test/de/neyeon/feathry/dispatcher/testcontext.xml",
+		"/de/neyeon/feathry/dispatcher/config/default.xml" })
 public class ServiceInvocationHandlerTest
 {
 	@Autowired
@@ -30,11 +32,11 @@ public class ServiceInvocationHandlerTest
 		try
 		{
 			assertNotNull(serviceDispatcher);
-			XmlRpcInvocationHandler handler = new ServiceInvocationHandler(serviceDispatcher);
+			XmlRpcInvocationHandler handler = new ServiceInvocationHandler("test", serviceDispatcher);
 			List args = new ArrayList();
 			args.add("Hello");
 			args.add("Test");
-			String result = (String) handler.invoke("testService.hello", args);
+			String result = (String) handler.invoke("hello", args);
 			String expected = "Hello Test";
 			assertEquals(result, expected);
 		} catch (Throwable e)
