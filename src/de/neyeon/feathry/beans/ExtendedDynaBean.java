@@ -15,12 +15,15 @@ import org.apache.commons.beanutils.DynaProperty;
 import org.apache.commons.beanutils.LazyDynaMap;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.beanutils.WrapDynaClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author David Luecke (daff@neyeon.de)
  */
 public class ExtendedDynaBean implements DynaBean
 {
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	protected DynaBean bean;
 
 	/**
@@ -94,6 +97,7 @@ public class ExtendedDynaBean implements DynaBean
 	{
 		if (Map.class.isAssignableFrom(cls))
 		{
+			log.debug("Returning map decorator for {}", cls.getName());
 			return (T) this.getMapDecorator();
 		}
 
@@ -111,6 +115,8 @@ public class ExtendedDynaBean implements DynaBean
 					Class<?> subBeanType = PropertyUtils.getPropertyType(result, name);
 					Map<?, ?> beanMap = (Map<?, ?>) this.get(name);
 					Object subBeanInstance = new ExtendedDynaBean(beanMap).getBean(subBeanType);
+					log.debug("Found Map for property {}. Bean type is {}.", name, subBeanType
+							.getName());
 					value = subBeanInstance;
 				} else if (DynaBean.class.isAssignableFrom(property.getType()))
 				{
@@ -118,6 +124,8 @@ public class ExtendedDynaBean implements DynaBean
 					Class<?> subBeanType = PropertyUtils.getPropertyType(result, name);
 					DynaBean subBean = (DynaBean) this.get(name);
 					Object subBeanInstance = new ExtendedDynaBean(subBean).getBean(subBeanType);
+					log.debug("Found DynaBean for property {}. Bean type is {}.", name, subBeanType
+							.getName());
 					value = subBeanInstance;
 				}
 				PropertyUtils.setProperty(result, name, value);
@@ -151,11 +159,19 @@ public class ExtendedDynaBean implements DynaBean
 	 */
 	public Class<?> choose(List<Class<?>> choices) throws ChoiceException
 	{
+		log.debug("Choosing from classes {}", choices);
 		double similarity = 0.0;
 		Class<?> bestChoice = null;
 		for (Class<?> cur : choices)
 		{
 			double currentSimilarity = this.getSimilarity(cur);
+			if(log.isDebugEnabled())
+			{
+				// Doesn't seem to autobox otherwise
+				Object[] args = { cur.getName(), currentSimilarity, similarity };
+				log.debug("Inspecting {} class similarity is {}, current best similarity is {}.",
+						args);
+			}
 			if ((currentSimilarity == similarity) && (similarity != 0.0))
 			{
 				throw new ChoiceException("Cannot make distinct choice for class " + cur.getName()
@@ -222,8 +238,8 @@ public class ExtendedDynaBean implements DynaBean
 	}
 
 	/**
-	 * Calculates the similarity of the property names between the DynaClass
-	 * of this DynaBean and another class in percent.
+	 * Calculates the similarity of the property names between the DynaClass of
+	 * this DynaBean and another class in percent.
 	 * @param cls The class to inspect
 	 * @return The similarity of the property names in percent
 	 */
@@ -234,8 +250,9 @@ public class ExtendedDynaBean implements DynaBean
 
 	/**
 	 * Calculates the similarity of the property names between the DynaClass of
-	 * this DynaBean and another DynaClass in percent. If the other DynaClass shares
-	 * all properties that this DynaBean supports it will return 1.0, otherwise less.
+	 * this DynaBean and another DynaClass in percent. If the other DynaClass
+	 * shares all properties that this DynaBean supports it will return 1.0,
+	 * otherwise less.
 	 * @param other The other DynaClass to inspect
 	 * @return The similarity of the properties in percent
 	 */
