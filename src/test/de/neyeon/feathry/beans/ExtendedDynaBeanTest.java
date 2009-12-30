@@ -1,6 +1,6 @@
 package test.de.neyeon.feathry.beans;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -69,6 +69,7 @@ public class ExtendedDynaBeanTest
 		assertEquals("Test", result.getName());
 		assertEquals(23, result.getAge());
 		assertEquals("InnerTest", BeanUtils.getProperty(result, "innerDummy.id"));
+		assertTrue(result.getInnerDummy() instanceof InnerDummyBean);
 	}
 
 	@Test
