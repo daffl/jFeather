@@ -57,7 +57,7 @@ public class XmlRpcWorkerFactory implements WorkerFactory
 		server = new XmlRpcServer();
 		for(String name : serviceDispatcher.getServiceNames())
 		{
-			XmlRpcInvocationHandler handler = new ServiceInvocationHandler(name, serviceDispatcher);
+			XmlRpcInvocationHandler handler = new InvocationHandlerDecorator(name, serviceDispatcher);
 			server.addInvocationHandler(name, handler);
 		}
 	}
