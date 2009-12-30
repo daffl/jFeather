@@ -1,8 +1,6 @@
 package de.neyeon.feathry.beans;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +17,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Class that decorates any of the {@link DynaBean} implementations of the <a
+ * href="http://commons.apache.org/beanutils/" target="_blank">Apach Commons
+ * Beanutil</a> package.<br />
+ * Provides additional functionality for populating the current DynaBean into to
+ * a specific bean class (supporting instatiation and propagation of nested
+ * beans as well if the nested properties are the bean itself, a {@link Map} or
+ * another DynaBean instance). <br />
+ * Additionally this class provides functionality for choosing the most
+ * appropriate bean implementation class from a list of classes, looking for the
+ * best similarity between this DynaBean properties and any of the given
+ * classes.
  * @author David Luecke (daff@neyeon.de)
  */
 public class ExtendedDynaBean implements DynaBean
@@ -165,7 +174,7 @@ public class ExtendedDynaBean implements DynaBean
 		for (Class<?> cur : choices)
 		{
 			double currentSimilarity = this.getSimilarity(cur);
-			if(log.isDebugEnabled())
+			if (log.isDebugEnabled())
 			{
 				// Doesn't seem to autobox otherwise
 				Object[] args = { cur.getName(), currentSimilarity, similarity };
@@ -189,52 +198,6 @@ public class ExtendedDynaBean implements DynaBean
 					"Could not make an appropriate choice. There are no similarities to this bean.");
 		}
 		return bestChoice;
-	}
-
-	/**
-	 * Choose the class that matches most of the properties of this DynaBean
-	 * from an array of methods and a given parameter index. If two classes
-	 * share the exact same or no properties a ChoiceException is thrown.
-	 * Additionally a ChoiceException will be thrown if the parameter counts of
-	 * the methods don't match.
-	 * @param methods The array of methods to inspect
-	 * @param index The position of the parameter in the methods
-	 * @return The class matching most of the properties of this bean
-	 * @throws ChoiceException If two classes share the exact same properties or
-	 *         no properties at all with this bean
-	 */
-	public Class<?> choose(Method[] methods, int index) throws ChoiceException
-	{
-		return this.choose(Arrays.asList(methods), index);
-	}
-
-	/**
-	 * Choose the class that matches most of the properties of this DynaBean
-	 * from a list of methods and a given parameter index. If two classes share
-	 * the exact same or no properties a ChoiceException is thrown. Additionally
-	 * a ChoiceException will be thrown if the parameter counts of the methods
-	 * don't match.
-	 * @param methods The array of methods to inspect
-	 * @param index The position of the parameter in each of the methods.
-	 * @return The class matching most of the properties of this bean
-	 * @throws ChoiceException If two classes share the exact same properties or
-	 *         no properties at all with this bean
-	 */
-	public Class<?> choose(List<Method> methods, int index) throws ChoiceException
-	{
-		List<Class<?>> choices = new ArrayList<Class<?>>();
-		int paramCount = methods.get(0).getParameterTypes().length;
-		for (Method m : methods)
-		{
-			if (m.getParameterTypes().length != paramCount)
-			{
-				throw new ChoiceException("Method " + m.getName()
-						+ " has a different parameter count than expected (" + paramCount
-						+ "). Can only choose between methods with the same parameter count.");
-			}
-			choices.add(m.getParameterTypes()[index]);
-		}
-		return this.choose(choices);
 	}
 
 	/**
