@@ -20,7 +20,7 @@ public final class RemoteProcedureCall
 			this.args = args;
 	}
 
-	public Class<?>[] getArgumentTypes()
+	public Class<?>[] getParameterTypes()
 	{
 		Class<?>[] result = new Class<?>[args.length];
 		for (int i = 0; i < args.length; i++)
@@ -30,6 +30,11 @@ public final class RemoteProcedureCall
 		return result;
 	}
 
+	public int getParameterCount()
+	{
+		return args.length;
+	}
+	
 	public Method getDispatchableMethod(Object serviceInstance) throws NoSuchMethodException
 	{
 		return this.getDispatchableMethod(serviceInstance.getClass());
@@ -39,7 +44,7 @@ public final class RemoteProcedureCall
 	{
 		try
 		{
-			return cls.getMethod(methodName, this.getArgumentTypes());
+			return cls.getMethod(methodName, this.getParameterTypes());
 		} catch (SecurityException e)
 		{
 			throw new NoSuchMethodException(

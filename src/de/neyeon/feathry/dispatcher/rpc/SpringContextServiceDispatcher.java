@@ -35,21 +35,8 @@ public class SpringContextServiceDispatcher implements ApplicationContextAware, 
 	{
 		// TODO refactor this
 		Object service = this.getService(rpc.getServiceName());
-		try
-		{
-			log.debug("Dispatching {}", rpc);
-			Method toDispatch = rpc.getDispatchableMethod(service);
-			return toDispatch.invoke(service, rpc.getArguments());
-		} catch (NoSuchMethodException e)
-		{
-			if (service instanceof Interceptable)
-			{
-				log.debug("Calling invoke(String, Object[]) on Interceptable service");
-				return ((Interceptable) service).invoke(rpc.getMethodName(), rpc.getArguments());
-			} else {
-				throw e;
-			}
-		}
+		ServiceInvocationHandler handler = new ServiceInvocationHandler(service);
+		return handler.invoke(rpc);
 	}
 
 	@Override
