@@ -18,7 +18,7 @@ import de.neyeon.feathry.dispatcher.ThreadManager;
  * @author David Luecke (daff@neyeon.de)
  */
 public class HttpContainer implements Container
-{	
+{
 	private Map<String, WorkerFactory> workers;
 	private ThreadManager threadManager;
 
