@@ -29,4 +29,11 @@ public class TestServiceImpl implements TestService, Interceptable
 	{
 		return new TestBean(name, age);
 	}
+
+	@Override
+	public String save(TestBean test)
+	{
+		assert(test != null);
+		return test.toString();
+	}
 }

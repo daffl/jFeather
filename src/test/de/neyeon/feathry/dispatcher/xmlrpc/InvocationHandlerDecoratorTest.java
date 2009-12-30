@@ -1,6 +1,8 @@
 package test.de.neyeon.feathry.dispatcher.xmlrpc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +14,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import redstone.xmlrpc.XmlRpcInvocationHandler;
-
 import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
-import de.neyeon.feathry.dispatcher.xmlrpc.ServiceInvocationHandler;
+import de.neyeon.feathry.dispatcher.xmlrpc.InvocationHandlerDecorator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations =
 { "/test/de/neyeon/feathry/dispatcher/testcontext.xml",
 		"/de/neyeon/feathry/dispatcher/config/default.xml" })
-public class ServiceInvocationHandlerTest
+public class InvocationHandlerDecoratorTest
 {
 	@Autowired
 	ServiceDispatcher serviceDispatcher;
@@ -32,7 +33,7 @@ public class ServiceInvocationHandlerTest
 		try
 		{
 			assertNotNull(serviceDispatcher);
-			XmlRpcInvocationHandler handler = new ServiceInvocationHandler("test", serviceDispatcher);
+			XmlRpcInvocationHandler handler = new InvocationHandlerDecorator("test", serviceDispatcher);
 			List args = new ArrayList();
 			args.add("Hello");
 			args.add("Test");

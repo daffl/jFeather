@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import redstone.xmlrpc.XmlRpcClient;
+import test.de.neyeon.feathry.dispatcher.TestBean;
 import de.neyeon.feathry.dispatcher.ThreadManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,6 +21,8 @@ import de.neyeon.feathry.dispatcher.ThreadManager;
 		"/de/neyeon/feathry/dispatcher/config/default.xml" })
 public class XmlRpcWorkerTest
 {
+	static boolean serverIsRunning = false;
+	
 	@Autowired
 	ThreadManager threadManager;
 	@Autowired
@@ -28,9 +31,13 @@ public class XmlRpcWorkerTest
 	@Before
 	public void setUp() throws Exception
 	{
-		threadManager.offer(httpServer);
-		// Just to make sure that everything is started up
-		Thread.sleep(1000);
+		if(!serverIsRunning) // Start server only once
+		{
+			threadManager.offer(httpServer);
+			// Just to make sure that everything is started up
+			Thread.sleep(1000);
+			serverIsRunning = true;
+		}
 	}
 
 	@Test
@@ -64,5 +71,25 @@ public class XmlRpcWorkerTest
 			e.printStackTrace();
 			fail("Got error " + e.getMessage());
 		}
+	}
+	
+	@Test
+	public void testTestServiceSaveTestBean()
+	{
+		try
+		{
+			TestBean tb = new TestBean();
+			tb.setName("Test");
+			tb.setAge(23);
+			
+			XmlRpcClient client = new XmlRpcClient("http://localhost:8080/xmlrpc", true);
+			Object[] args = new Object[] { tb };
+			String result = (String) client.invoke("test.save", args);
+			assertEquals(tb.toString(), result);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			fail("Got error " + e.getMessage());
+		}		
 	}
 }

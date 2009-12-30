@@ -1,6 +1,7 @@
 package test.de.neyeon.feathry.dispatcher.rpc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 
@@ -11,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import test.de.neyeon.feathry.dispatcher.TestBean;
-
 import de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall;
 import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
 
