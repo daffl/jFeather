@@ -1,6 +1,5 @@
 package de.neyeon.feathry.dispatcher.rpc;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +9,12 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import de.neyeon.feathry.dispatcher.Interceptable;
-
 /**
  * A centralized Service registry where all method calls will be redirected to.
  * Uses the injected {@link ApplicationContext} for service object retrieval.
  * @author daff
  */
-public class SpringContextServiceDispatcher implements ApplicationContextAware, ServiceDispatcher
+public class SpringContextRegistry implements ApplicationContextAware, ServiceRegistry
 {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private String namingPostfix;
@@ -33,9 +30,8 @@ public class SpringContextServiceDispatcher implements ApplicationContextAware, 
 	 */
 	public Object invoke(RemoteProcedureCall rpc) throws Throwable
 	{
-		// TODO refactor this
 		Object service = this.getService(rpc.getServiceName());
-		ServiceInvocationHandler handler = new ServiceInvocationHandler(service);
+		ServiceDispatcher handler = new ServiceDispatcher(service);
 		return handler.invoke(rpc);
 	}
 
