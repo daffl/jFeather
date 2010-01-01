@@ -1,6 +1,7 @@
 package de.neyeon.feathry.beans;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -177,7 +178,8 @@ public class ExtendedDynaBean implements DynaBean
 			if (log.isDebugEnabled())
 			{
 				// Doesn't seem to autobox otherwise
-				Object[] args = { cur.getName(), currentSimilarity, similarity };
+				DecimalFormat df = new DecimalFormat("#.##");
+				Object[] args = { cur.getName(), df.format(currentSimilarity), df.format(similarity) };
 				log.debug("Inspecting {} class similarity is {}, current best similarity is {}.",
 						args);
 			}
@@ -202,7 +204,10 @@ public class ExtendedDynaBean implements DynaBean
 
 	/**
 	 * Calculates the similarity of the property names between the DynaClass of
-	 * this DynaBean and another class in percent.
+	 * this DynaBean and another class. The class with the smallest number of commmon properties
+	 * will have a higher similarity. Therefore if this beans DynaClass contains an age and number properties
+	 * and class A contains a number, age and date property and class B contains only
+	 * the number and age property class B will have a higher similarity than class A.
 	 * @param cls The class to inspect
 	 * @return The similarity of the property names in percent
 	 */
@@ -213,11 +218,26 @@ public class ExtendedDynaBean implements DynaBean
 
 	/**
 	 * Calculates the similarity of the property names between the DynaClass of
-	 * this DynaBean and another DynaClass in percent. If the other DynaClass
-	 * shares all properties that this DynaBean supports it will return 1.0,
-	 * otherwise less.
-	 * @param other The other DynaClass to inspect
-	 * @return The similarity of the properties in percent
+	 * this DynaBean and another DynaBean. The DynaClass with the smallest number of commmon properties
+	 * will have a higher similarity. Therefore if this beans DynaClass contains an age and number properties
+	 * and DynaBean A contains a number, age and date property and DynaBean B contains only
+	 * the number and age property DynaClass B will have a higher similarity than DynaClass A.
+	 * @param other The DynaBean to inspect
+	 * @return A similarity value of all properties
+	 */
+	public double getSimilarity(DynaBean other)
+	{
+		return this.getSimilarity(other.getDynaClass());
+	}
+	
+	/**
+	 * Calculates the similarity of the property names between the DynaClass of
+	 * this DynaBean and another DynaClass. The DynaClass with the smallest number of commmon properties
+	 * will have a higher similarity. Therefore if this beans DynaClass contains an age and number properties
+	 * and DynaClass A contains a number, age and date property and DynaClass B contains only
+	 * the number and age property DynaClass B will have a higher similarity than DynaClass A.
+	 * @param other The DynaClass to inspect
+	 * @return A similarity value of all properties
 	 */
 	public double getSimilarity(DynaClass other)
 	{
@@ -230,20 +250,14 @@ public class ExtendedDynaBean implements DynaBean
 				sum++;
 			}
 		}
-		return ((double) sum) / ((double) myDynaClass.getDynaProperties().length);
+		return ((double) sum) / ((double) other.getDynaProperties().length);
 	}
 
 	/**
-	 * Calculates the similarity of the property names between the DynaClass of
-	 * this DynaBean and the one of another DynaBean.
-	 * @param other
-	 * @return
+	 * Returns a decorated Map interface for accessing this bean as a Map.
+	 * Uses the {@link DynaBeanMapDecorator} so mapping won't happen recursively.
+	 * @return The decorated map
 	 */
-	public double getSimilarity(DynaBean other)
-	{
-		return this.getSimilarity(other.getDynaClass());
-	}
-
 	public Map<?, ?> getMapDecorator()
 	{
 		return new DynaBeanMapDecorator(this);
