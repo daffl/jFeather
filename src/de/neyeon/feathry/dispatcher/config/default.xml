@@ -6,7 +6,7 @@
 	<bean id="threadManager" class="de.neyeon.feathry.dispatcher.ThreadManager">
 	</bean>
 
-	<bean id="serviceDispatcher" class="de.neyeon.feathry.dispatcher.rpc.SpringContextServiceDispatcher">
+	<bean id="serviceDispatcher" class="de.neyeon.feathry.dispatcher.rpc.SpringContextRegistry">
 		<property name="namingPostfix" value="Service" />
 	</bean>
 	

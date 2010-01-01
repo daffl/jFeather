@@ -7,16 +7,16 @@ import org.slf4j.LoggerFactory;
 
 import redstone.xmlrpc.XmlRpcInvocationHandler;
 import de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall;
-import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
+import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 
 public class InvocationHandlerDecorator implements XmlRpcInvocationHandler
 {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	protected final ServiceDispatcher dispatcher;
+	protected final ServiceRegistry dispatcher;
 	protected final String serviceName;
 	
-	public InvocationHandlerDecorator(String serviceName, ServiceDispatcher dispatcher)
+	public InvocationHandlerDecorator(String serviceName, ServiceRegistry dispatcher)
 	{
 		this.dispatcher = dispatcher;
 		this.serviceName = serviceName;

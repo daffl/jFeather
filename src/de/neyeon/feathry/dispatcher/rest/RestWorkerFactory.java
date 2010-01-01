@@ -5,7 +5,7 @@ import org.simpleframework.http.Response;
 
 import de.neyeon.feathry.dispatcher.http.Worker;
 import de.neyeon.feathry.dispatcher.http.WorkerFactory;
-import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
+import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 
 public class RestWorkerFactory implements WorkerFactory
 {
@@ -18,14 +18,14 @@ public class RestWorkerFactory implements WorkerFactory
 	}
 
 	@Override
-	public ServiceDispatcher getServiceDispatcher()
+	public ServiceRegistry getServiceDispatcher()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setServiceDispatcher(ServiceDispatcher serviceDispatcher)
+	public void setServiceDispatcher(ServiceRegistry serviceDispatcher)
 	{
 		// TODO Auto-generated method stub
 		

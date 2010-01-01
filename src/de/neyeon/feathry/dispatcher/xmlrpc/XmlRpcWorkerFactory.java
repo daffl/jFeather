@@ -8,7 +8,7 @@ import redstone.xmlrpc.XmlRpcInvocationHandler;
 import redstone.xmlrpc.XmlRpcServer;
 import de.neyeon.feathry.dispatcher.http.Worker;
 import de.neyeon.feathry.dispatcher.http.WorkerFactory;
-import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
+import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 
 /**
  * The worker factory implementation for XML remote procedure calls. Uses the XML RPC implementation
@@ -17,7 +17,7 @@ import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
  */
 public class XmlRpcWorkerFactory implements WorkerFactory
 {
-	protected ServiceDispatcher serviceDispatcher;
+	protected ServiceRegistry serviceDispatcher;
 	protected XmlRpcServer server;
 	
 	/* (non-Javadoc)
@@ -37,7 +37,7 @@ public class XmlRpcWorkerFactory implements WorkerFactory
 	 * @see de.neyeon.feathry.dispatcher.http.WorkerFactory#getServiceDispatcher()
 	 */
 	@Override
-	public ServiceDispatcher getServiceDispatcher()
+	public ServiceRegistry getServiceDispatcher()
 	{
 		return serviceDispatcher;
 	}
@@ -46,7 +46,7 @@ public class XmlRpcWorkerFactory implements WorkerFactory
 	 * @see de.neyeon.feathry.dispatcher.http.WorkerFactory#setServiceDispatcher(de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher)
 	 */
 	@Override
-	public void setServiceDispatcher(ServiceDispatcher serviceDispatcher)
+	public void setServiceDispatcher(ServiceRegistry serviceDispatcher)
 	{
 		this.serviceDispatcher = serviceDispatcher;
 		this.initInvocationHandlers();
