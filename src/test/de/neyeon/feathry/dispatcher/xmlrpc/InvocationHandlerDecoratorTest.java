@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import redstone.xmlrpc.XmlRpcInvocationHandler;
-import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
+import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 import de.neyeon.feathry.dispatcher.xmlrpc.InvocationHandlerDecorator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,7 +24,7 @@ import de.neyeon.feathry.dispatcher.xmlrpc.InvocationHandlerDecorator;
 public class InvocationHandlerDecoratorTest
 {
 	@Autowired
-	ServiceDispatcher serviceDispatcher;
+	ServiceRegistry serviceDispatcher;
 	
 	@SuppressWarnings("unchecked")
 	@Test

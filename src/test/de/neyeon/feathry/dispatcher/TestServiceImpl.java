@@ -36,4 +36,11 @@ public class TestServiceImpl implements TestService, Interceptable
 		assert(test != null);
 		return test.toString();
 	}
+
+	@Override
+	public String save(OtherTestBean test)
+	{
+		assert(test != null);
+		return test.toString();
+	}
 }

@@ -13,15 +13,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import test.de.neyeon.feathry.dispatcher.TestBean;
 import de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall;
-import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
+import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/test/de/neyeon/feathry/dispatcher/testcontext.xml",
 		"/de/neyeon/feathry/dispatcher/config/default.xml" })
-public class SpringContextServiceDispatcherTest
+public class SpringContextRegistryTest
 {
 	@Autowired
-	ServiceDispatcher serviceDispatcher;
+	ServiceRegistry serviceDispatcher;
 
 	@Test
 	public void testInvokeHelloString()
