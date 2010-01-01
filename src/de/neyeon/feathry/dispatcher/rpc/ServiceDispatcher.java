@@ -1,6 +1,5 @@
 package de.neyeon.feathry.dispatcher.rpc;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,6 @@ import org.apache.commons.beanutils.DynaBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.neyeon.feathry.beans.ChoiceException;
 import de.neyeon.feathry.beans.ExtendedDynaBean;
 import de.neyeon.feathry.dispatcher.Interceptable;
 
