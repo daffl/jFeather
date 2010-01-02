@@ -7,4 +7,5 @@ public interface TestService
 	public TestBean getTestBean(String name, Integer age);
 	public String save(TestBean test);
 	public String save(OtherTestBean test);
+	public OtherTestBean updateDate(OtherTestBean toUpdate);
 }

@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import redstone.xmlrpc.XmlRpcClient;
 import test.de.neyeon.feathry.dispatcher.OtherTestBean;
 import test.de.neyeon.feathry.dispatcher.TestBean;
+import de.neyeon.feathry.beans.ExtendedDynaBean;
 import de.neyeon.feathry.dispatcher.ThreadManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -113,5 +114,26 @@ public class XmlRpcWorkerTest
 			e.printStackTrace();
 			fail("Got error " + e.getMessage());
 		}		
-	}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void testUpdateDateOtherTestBean()
+	{
+		try
+		{
+			OtherTestBean otb = new OtherTestBean();
+			otb.setName("Test");
+			otb.setAge(23);
+
+			XmlRpcClient client = new XmlRpcClient("http://localhost:8080/xmlrpc", true);
+			Object[] args = new Object[] { otb };
+			Map<Object, Object> resultMap = (Map<Object, Object>) client.invoke("test.updateDate", args);
+			OtherTestBean result = new ExtendedDynaBean(resultMap).getBean(OtherTestBean.class);
+			assertEquals(1000000, result.getDate());
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			fail("Got error " + e.getMessage());
+		}			
+	}
 }

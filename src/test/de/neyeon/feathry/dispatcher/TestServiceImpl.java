@@ -34,4 +34,12 @@ public class TestServiceImpl implements TestService
 		assert(test != null);
 		return test.toString();
 	}
+
+	@Override
+	public OtherTestBean updateDate(OtherTestBean toUpdate)
+	{
+		assert(toUpdate != null);
+		toUpdate.setDate(1000000);
+		return toUpdate;
+	}
 }
