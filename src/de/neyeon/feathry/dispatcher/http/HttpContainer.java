@@ -12,7 +12,7 @@ import de.neyeon.feathry.dispatcher.ThreadManager;
 /**
  * Class implementing the Simpleframework HTTP container interface for handling requests.
  * The container takes a map of {@link WorkerFactory}s that will be used to instantiate
- * the appropriate worker thread. The map key is the HTTP base URL on the server that maps
+ * the appropriate worker threads. The map key is the HTTP base URL on the server that maps
  * to the correct worker factory (e.g. http://localhost:port/factoryName maps to the WorkerFactory
  * called factoryName).  
  * @author David Luecke (daff@neyeon.de)

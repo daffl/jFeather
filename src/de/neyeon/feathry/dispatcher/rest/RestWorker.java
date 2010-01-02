@@ -8,7 +8,7 @@ import de.neyeon.feathry.dispatcher.http.Worker;
 public class RestWorker extends Worker
 {
 
-	protected RestWorker(Request request, Response response)
+	public RestWorker(Request request, Response response)
 	{
 		super(request, response);
 		// TODO Auto-generated constructor stub

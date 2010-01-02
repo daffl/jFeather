@@ -2,7 +2,7 @@ package test.de.neyeon.feathry.dispatcher;
 
 import java.util.Arrays;
 
-import de.neyeon.feathry.dispatcher.Interceptable;
+import de.neyeon.feathry.service.Interceptable;
 
 public class InterceptableService implements Interceptable
 {

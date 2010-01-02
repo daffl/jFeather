@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.neyeon.feathry.beans.ExtendedDynaBean;
-import de.neyeon.feathry.dispatcher.Interceptable;
+import de.neyeon.feathry.service.Interceptable;
 
 /**
  * Class that maps a given service interface class to a service object. The

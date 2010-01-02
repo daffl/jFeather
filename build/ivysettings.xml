@@ -4,7 +4,7 @@
   <resolvers>
     <chain name="chain" returnFirst="true">
       <url name="springsource" m2compatible="true">
-        <artifact pattern="http://maven.springframework.org/milestone/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+        <artifact pattern="http://maven.springframework.org/milestone/[organisation]/[module]/[revision]/[artifact]-[type]-[revision].[ext]" />
       </url>
       <ibiblio name="ibiblio" m2compatible="true" usepoms="false"/>
     </chain>
