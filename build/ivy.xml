@@ -20,8 +20,8 @@
 <ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
     <info
-        organisation=""
-        module="feathry-common"
+        organisation="de.neyeon"
+        module="feathry-commons"
         status="integration">
 	</info>
 	<dependencies>
@@ -29,5 +29,8 @@
 	    <dependency org="org.slf4j" name="nlog4j" rev="1.2.25"/>
 	    <dependency org="commons-logging" name="commons-logging" rev="1.1.1"/>
 	    <dependency org="junit" name="junit" rev="4.7" />
+		<dependency org="commons-beanutils" name="commons-beanutils" rev="1.8.2">
+			<artifact name="commons-beanutils" ext="jar" type="javadoc" classifier="javadoc" conf="test" />
+		</dependency>		
 	</dependencies>
 </ivy-module>
