@@ -178,7 +178,7 @@ public class ExtendedDynaBean implements DynaBean
 			if (log.isDebugEnabled())
 			{
 				// Doesn't seem to autobox otherwise
-				DecimalFormat df = new DecimalFormat("#.##");
+				DecimalFormat df = new DecimalFormat("##.##");
 				Object[] args = { cur.getName(), df.format(currentSimilarity), df.format(similarity) };
 				log.debug("Inspecting {} class similarity is {}, current best similarity is {}.",
 						args);
@@ -197,7 +197,7 @@ public class ExtendedDynaBean implements DynaBean
 		if (bestChoice == null)
 		{
 			throw new ChoiceException(
-					"Could not make an appropriate choice. There are no similarities to this bean.");
+					"Could not make an appropriate choice. Classes don't have similarities to this bean.");
 		}
 		return bestChoice;
 	}
