@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import test.de.neyeon.feathry.dispatcher.InterceptableService;
-import test.de.neyeon.feathry.dispatcher.TestBean;
-import test.de.neyeon.feathry.dispatcher.TestService;
+import test.de.neyeon.feathry.dispatcher.beans.TestBean;
+import test.de.neyeon.feathry.dispatcher.services.InterceptableService;
+import test.de.neyeon.feathry.dispatcher.services.TestService;
 import de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall;
 import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
 

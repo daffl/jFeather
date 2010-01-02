@@ -4,6 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
 	default-autowire="byName">
 
-	<bean id="testService" class="test.de.neyeon.feathry.dispatcher.TestServiceImpl">	
+	<bean id="testService" class="test.de.neyeon.feathry.dispatcher.services.TestServiceImpl">	
 	</bean>
 </beans>

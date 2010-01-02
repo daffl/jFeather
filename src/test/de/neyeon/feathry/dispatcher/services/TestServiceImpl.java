@@ -1,4 +1,7 @@
-package test.de.neyeon.feathry.dispatcher;
+package test.de.neyeon.feathry.dispatcher.services;
+
+import test.de.neyeon.feathry.dispatcher.beans.OtherTestBean;
+import test.de.neyeon.feathry.dispatcher.beans.TestBean;
 
 
 public class TestServiceImpl implements TestService

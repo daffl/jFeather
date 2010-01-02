@@ -13,8 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import redstone.xmlrpc.XmlRpcClient;
-import test.de.neyeon.feathry.dispatcher.OtherTestBean;
-import test.de.neyeon.feathry.dispatcher.TestBean;
+import test.de.neyeon.feathry.dispatcher.beans.OtherTestBean;
+import test.de.neyeon.feathry.dispatcher.beans.TestBean;
 import de.neyeon.feathry.beans.ExtendedDynaBean;
 import de.neyeon.feathry.dispatcher.ThreadManager;
 
