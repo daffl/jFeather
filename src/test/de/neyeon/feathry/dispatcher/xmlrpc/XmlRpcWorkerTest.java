@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import redstone.xmlrpc.XmlRpcClient;
+import test.de.neyeon.feathry.dispatcher.OtherTestBean;
 import test.de.neyeon.feathry.dispatcher.TestBean;
 import de.neyeon.feathry.dispatcher.ThreadManager;
 
@@ -92,4 +93,25 @@ public class XmlRpcWorkerTest
 			fail("Got error " + e.getMessage());
 		}		
 	}
+	
+	@Test
+	public void testTestServiceSaveOtherTestBean()
+	{
+		try
+		{
+			OtherTestBean otb = new OtherTestBean();
+			otb.setName("Test");
+			otb.setAge(23);
+			otb.setDate(1);
+
+			XmlRpcClient client = new XmlRpcClient("http://localhost:8080/xmlrpc", true);
+			Object[] args = new Object[] { otb };
+			String result = (String) client.invoke("test.save", args);
+			assertEquals(otb.toString(), result);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			fail("Got error " + e.getMessage());
+		}		
+	}	
 }

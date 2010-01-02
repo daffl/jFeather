@@ -53,5 +53,11 @@ public class OtherTestBean
 	{
 		this.date = date;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return name + " : " + age + " at " + date;
+	}
 
 }
