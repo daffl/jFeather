@@ -130,7 +130,7 @@ public class ExtendedDynaBean implements DynaBean
 				{
 					// If current property is a map we need to convert it to the
 					// expected bean type
-					Class<?> subBeanType = PropertyUtils.getPropertyType(result, name);
+					Class subBeanType = PropertyUtils.getPropertyType(result, name);
 					Map<?, ?> beanMap = (Map<?, ?>) this.get(name);
 					Object subBeanInstance = new ExtendedDynaBean(beanMap).getBean(subBeanType);
 					log.debug("Found Map for property {}. Bean type is {}.", name, subBeanType
@@ -139,7 +139,7 @@ public class ExtendedDynaBean implements DynaBean
 				} else if (DynaBean.class.isAssignableFrom(property.getType()))
 				{
 					// If we have a DynaBean we need to convert it as well
-					Class<?> subBeanType = PropertyUtils.getPropertyType(result, name);
+					Class subBeanType = PropertyUtils.getPropertyType(result, name);
 					DynaBean subBean = (DynaBean) this.get(name);
 					Object subBeanInstance = new ExtendedDynaBean(subBean).getBean(subBeanType);
 					log.debug("Found DynaBean for property {}. Bean type is {}.", name, subBeanType
@@ -169,7 +169,7 @@ public class ExtendedDynaBean implements DynaBean
 	/**
 	 * Choose the class that matches most of the properties of this DynaBean
 	 * from a list of classes. If two classes share the exact same or no
-	 * properties a ChoiceException is thrown.
+	 * properties are being shared with this DynaBean at all a ChoiceException is thrown.
 	 * @param choices The list of classes that need to be inspected
 	 * @return The class matching most of the properties of this bean
 	 * @throws ChoiceException If two classes share the exact same properties or
@@ -178,6 +178,7 @@ public class ExtendedDynaBean implements DynaBean
 	public Class<?> choose(List<Class<?>> choices) throws ChoiceException
 	{
 		log.debug("Choosing from classes {}", choices);
+		// TODO add class hints
 		double similarity = 0.0;
 		Class<?> bestChoice = null;
 		for (Class<?> cur : choices)

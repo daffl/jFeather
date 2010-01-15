@@ -1,11 +1,10 @@
 package de.neyeon.feathry.service;
 
-import javax.imageio.spi.ServiceRegistry;
 
 /**
- * This interface should be implemented by services that want to intercept all methodcalls.
- * The {@link ServiceRegistry} will look if there is any method implemented, first and only
- * call invoke if there was no method found. 
+ * This interface should be implemented by services that want to intercept all other methodcalls.
+ * The ServiceDispatcher will first search for any matching methods implemented on the class
+ * implementing this interface and only call invoke if no method has been found. 
  * @author David Luecke (daff@neyeon.de)
  */
 public interface Interceptable
