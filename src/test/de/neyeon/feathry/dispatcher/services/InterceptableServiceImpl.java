@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import de.neyeon.feathry.service.Interceptable;
 
-public class InterceptableService implements Interceptable
+public class InterceptableServiceImpl implements Interceptable
 {
 
 	@Override

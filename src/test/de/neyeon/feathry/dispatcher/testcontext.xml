@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
 	default-autowire="byName">
 
-	<bean id="testService" class="test.de.neyeon.feathry.dispatcher.services.TestServiceImpl">	
+	<import resource="classpath*:/de/neyeon/feathry/dispatcher/config/default.xml" />
+
+	<bean name="serviceRegistry" class="de.neyeon.feathry.dispatcher.rpc.SpringContextRegistry">
+		<property name="namingPostfix" value="Service" />
+		<property name="interfaces">
+			<map>
+				<entry key="test" value="test.de.neyeon.feathry.dispatcher.services.TestService" />
+			</map>
+		</property>
 	</bean>
+
+	<bean name="testService" class="test.de.neyeon.feathry.dispatcher.services.TestServiceImpl" />
+
+	<bean name="interceptableService" class="test.de.neyeon.feathry.dispatcher.services.InterceptableServiceImpl" />
 </beans>

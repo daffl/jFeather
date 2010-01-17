@@ -13,14 +13,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import test.de.neyeon.feathry.dispatcher.beans.TestBean;
-import test.de.neyeon.feathry.dispatcher.services.InterceptableService;
+import test.de.neyeon.feathry.dispatcher.services.InterceptableServiceImpl;
 import test.de.neyeon.feathry.dispatcher.services.TestService;
 import de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall;
 import de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/test/de/neyeon/feathry/dispatcher/testcontext.xml",
-		"/de/neyeon/feathry/dispatcher/config/default.xml" })
+@ContextConfiguration(locations = { "/test/de/neyeon/feathry/dispatcher/testcontext.xml" })
 public class ServiceDispatcherTest
 {
 	@Autowired
@@ -44,7 +43,7 @@ public class ServiceDispatcherTest
 	@Test
 	public void testInvokeInterceptable() throws Throwable
 	{
-		ServiceDispatcher dispatcher = new ServiceDispatcher(new InterceptableService());
+		ServiceDispatcher dispatcher = new ServiceDispatcher(new InterceptableServiceImpl());
 		Object[] args = { "Hello", "Test" };
 		RemoteProcedureCall rpc = new RemoteProcedureCall("test", "doSomething", args);
 		String expected = "doSomething(" + Arrays.toString(args) + ")";

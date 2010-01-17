@@ -18,9 +18,7 @@ import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 import de.neyeon.feathry.dispatcher.xmlrpc.InvocationHandlerDecorator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations =
-{ "/test/de/neyeon/feathry/dispatcher/testcontext.xml",
-		"/de/neyeon/feathry/dispatcher/config/default.xml" })
+@ContextConfiguration(locations = { "/test/de/neyeon/feathry/dispatcher/testcontext.xml" })
 public class InvocationHandlerDecoratorTest
 {
 	@Autowired

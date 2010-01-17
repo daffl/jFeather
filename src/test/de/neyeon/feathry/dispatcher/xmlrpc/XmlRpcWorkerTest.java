@@ -19,8 +19,7 @@ import de.neyeon.feathry.beans.ExtendedDynaBean;
 import de.neyeon.feathry.dispatcher.ThreadManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/test/de/neyeon/feathry/dispatcher/testcontext.xml",
-		"/de/neyeon/feathry/dispatcher/config/default.xml" })
+@ContextConfiguration(locations = { "/test/de/neyeon/feathry/dispatcher/testcontext.xml" })
 public class XmlRpcWorkerTest
 {
 	static boolean serverIsRunning = false;
