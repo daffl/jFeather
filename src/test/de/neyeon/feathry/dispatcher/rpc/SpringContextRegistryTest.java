@@ -1,7 +1,6 @@
 package test.de.neyeon.feathry.dispatcher.rpc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
@@ -12,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import test.de.neyeon.feathry.dispatcher.beans.TestBean;
+import test.de.neyeon.feathry.dispatcher.services.TestService;
 import de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall;
 import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 
@@ -82,5 +82,14 @@ public class SpringContextRegistryTest
 		{
 			fail("Got exception " + e.getMessage());
 		}		
-	}	
+	}
+	
+	@Test
+	public void testGetServiceProxyString()
+	{
+		Object proxy = serviceRegistry.getServiceProxy("test");
+		assertTrue(proxy instanceof TestService);
+		TestService ts = (TestService) proxy;
+		assertEquals("Hello world", ts.hello("Hello", "world"));
+	}
 }

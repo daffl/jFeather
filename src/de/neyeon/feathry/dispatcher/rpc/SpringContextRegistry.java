@@ -1,10 +1,13 @@
 package de.neyeon.feathry.dispatcher.rpc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -20,6 +23,7 @@ public class SpringContextRegistry implements ApplicationContextAware, ServiceRe
 	private String namingPostfix;
 	protected ApplicationContext context;
 	protected List<String> serviceNames;
+	protected Map<String, Class<?>> exportedInterfaces = new HashMap<String, Class<?>>();
 	
 	/*
 	 * (non-Javadoc)
@@ -64,6 +68,12 @@ public class SpringContextRegistry implements ApplicationContextAware, ServiceRe
 		return serviceNames;
 	}
 
+	@Override
+	public Class<?> getServiceInterface(String serviceName)
+	{
+		return exportedInterfaces.get(serviceName);
+	}
+
 	public void setNamingPostfix(String namingPostfix)
 	{
 		this.namingPostfix = namingPostfix;
@@ -76,5 +86,31 @@ public class SpringContextRegistry implements ApplicationContextAware, ServiceRe
 	public String getNamingPostfix()
 	{
 		return namingPostfix;
+	}
+
+	@Override
+	public void attachInterface(String serviceName, Class<?> serviceInterface)
+	{
+		if(!serviceInterface.isInterface())
+		{
+			throw new IllegalArgumentException("The given class	" + serviceInterface.getName() + " is not an interface.");
+		}
+		exportedInterfaces.put(serviceName, serviceInterface);
+	}
+	
+	public void setInterfaces(Map<String, Class<?>> mapping)
+	{
+		log.debug("Setting mapping to {}", mapping);
+		exportedInterfaces = mapping;
+	}
+
+	@Override
+	public Object getServiceProxy(String serviceName)
+	{
+		ProxyFactoryBean bean = new ProxyFactoryBean();
+		bean.addAdvice(new InterceptorAdvice(serviceName, this));
+		Class<?> interfaceClass = this.getServiceInterface(serviceName);
+		bean.addInterface(interfaceClass);
+		return interfaceClass.cast(bean.getObject());
 	}
 }

@@ -49,6 +49,11 @@ public class ServiceDispatcher
 		this.serviceInstance = serviceInstance;
 	}
 
+	/**
+	 * @param rpc
+	 * @return
+	 * @throws Throwable
+	 */
 	public Object invoke(RemoteProcedureCall rpc) throws Throwable
 	{
 		log.debug("Invoking RPC {}", rpc);
@@ -64,6 +69,12 @@ public class ServiceDispatcher
 		}
 	}
 
+	/**
+	 * This method will be called if no directly matching method could be found.
+	 * @param rpc
+	 * @return
+	 * @throws Throwable
+	 */
 	protected Object handleDynamicCall(RemoteProcedureCall rpc) throws Throwable
 	{
 		// Method not found, try searching for it
@@ -156,7 +167,7 @@ public class ServiceDispatcher
 	protected List<Method> getMethods(String name, int parameterCount)
 	{
 		List<Method> result = new ArrayList<Method>();
-		for (Method cur : serviceClass.getMethods())
+		for (Method cur : getServiceClass().getMethods())
 		{
 			if (cur.getName().equals(name) && cur.getParameterTypes().length == parameterCount)
 			{
@@ -184,7 +195,7 @@ public class ServiceDispatcher
 	 */
 	public Object getServiceInstance()
 	{
-		return serviceClass.cast(serviceInstance);
+		return getServiceClass().cast(serviceInstance);
 	}
 
 }

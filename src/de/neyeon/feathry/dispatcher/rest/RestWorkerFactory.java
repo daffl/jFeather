@@ -18,14 +18,14 @@ public class RestWorkerFactory implements WorkerFactory
 	}
 
 	@Override
-	public ServiceRegistry getServiceDispatcher()
+	public ServiceRegistry getServiceRegistry()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setServiceDispatcher(ServiceRegistry serviceDispatcher)
+	public void setServiceRegistry(ServiceRegistry serviceDispatcher)
 	{
 		// TODO Auto-generated method stub
 		

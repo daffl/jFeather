@@ -3,14 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<bean id="threadManager" class="de.neyeon.feathry.dispatcher.ThreadManager">
+	<bean name="threadManager" class="de.neyeon.feathry.dispatcher.ThreadManager">
 	</bean>
 
-	<bean id="serviceDispatcher" class="de.neyeon.feathry.dispatcher.rpc.SpringContextRegistry">
+	<bean name="serviceRegistry" class="de.neyeon.feathry.dispatcher.rpc.SpringContextRegistry">
 		<property name="namingPostfix" value="Service" />
 	</bean>
 	
-	<bean id="httpContainer" class="de.neyeon.feathry.dispatcher.http.HttpContainer">
+	<bean name="httpContainer" class="de.neyeon.feathry.dispatcher.http.HttpContainer">
 		<property name="workers">
 			<map>
 				<entry key="xmlrpc" value-ref="xmlRpcWorkerFactory" />
@@ -19,12 +19,18 @@
 		<property name="threadManager" ref="threadManager" />
 	</bean>
 	
-	<bean id="xmlRpcWorkerFactory" class="de.neyeon.feathry.dispatcher.xmlrpc.XmlRpcWorkerFactory">
-		<property name="serviceDispatcher" ref="serviceDispatcher" />
+	<bean name="xmlRpcWorkerFactory" class="de.neyeon.feathry.dispatcher.xmlrpc.XmlRpcWorkerFactory">
+		<property name="serviceRegistry" ref="serviceRegistry" />
 	</bean>
 	
-	<bean id="httpServer" class="de.neyeon.feathry.dispatcher.http.SimpleHttpServer">
+	<bean name="httpServer" class="de.neyeon.feathry.dispatcher.http.SimpleHttpServer">
 		<property name="container" ref="httpContainer" />
 		<property name="port" value="8080" />
 	</bean>
+
+	 <bean name="rmiRegistry" class="de.neyeon.feathry.dispatcher.rmi.RmiRegistry">
+		<constructor-arg ref="serviceRegistry" />
+		<property name="port" value="1099" />
+	</bean>
+
 </beans>

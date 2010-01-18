@@ -37,7 +37,7 @@ public class XmlRpcWorkerFactory implements WorkerFactory
 	 * @see de.neyeon.feathry.dispatcher.http.WorkerFactory#getServiceDispatcher()
 	 */
 	@Override
-	public ServiceRegistry getServiceDispatcher()
+	public ServiceRegistry getServiceRegistry()
 	{
 		return serviceDispatcher;
 	}
@@ -46,7 +46,7 @@ public class XmlRpcWorkerFactory implements WorkerFactory
 	 * @see de.neyeon.feathry.dispatcher.http.WorkerFactory#setServiceDispatcher(de.neyeon.feathry.dispatcher.rpc.ServiceDispatcher)
 	 */
 	@Override
-	public void setServiceDispatcher(ServiceRegistry serviceDispatcher)
+	public void setServiceRegistry(ServiceRegistry serviceDispatcher)
 	{
 		this.serviceDispatcher = serviceDispatcher;
 		this.initInvocationHandlers();

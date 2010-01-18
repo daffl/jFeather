@@ -1,6 +1,5 @@
 package de.neyeon.feathry.dispatcher.rpc;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 public final class RemoteProcedureCall
@@ -33,25 +32,6 @@ public final class RemoteProcedureCall
 	public int getParameterCount()
 	{
 		return args.length;
-	}
-	
-	public Method getDispatchableMethod(Object serviceInstance) throws NoSuchMethodException
-	{
-		return this.getDispatchableMethod(serviceInstance.getClass());
-	}
-
-	public Method getDispatchableMethod(Class<?> cls) throws NoSuchMethodException
-	{
-		try
-		{
-			return cls.getMethod(methodName, this.getParameterTypes());
-		} catch (SecurityException e)
-		{
-			throw new NoSuchMethodException(
-					"Security exception while trying to access method "
-							+ methodName + " on instance of type "
-							+ cls.getName());
-		}
 	}
 
 	@Override

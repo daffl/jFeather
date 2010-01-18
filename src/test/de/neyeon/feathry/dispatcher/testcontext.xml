@@ -17,4 +17,9 @@
 	<bean name="testService" class="test.de.neyeon.feathry.dispatcher.services.TestServiceImpl" />
 
 	<bean name="interceptableService" class="test.de.neyeon.feathry.dispatcher.services.InterceptableServiceImpl" />
+	
+	<bean id="rmiTestService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" depends-on="rmiRegistry">
+		<property name="serviceUrl" value="rmi://localhost:1099/test" />
+		<property name="serviceInterface" value="test.de.neyeon.feathry.dispatcher.services.TestService" />
+	</bean>		
 </beans>

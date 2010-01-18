@@ -8,7 +8,6 @@ import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 
 public class ProxiedRmiExporter extends RmiServiceExporter
 {
-	private Object proxy;
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	public ProxiedRmiExporter(String serviceName, ServiceRegistry registry)
@@ -17,14 +16,7 @@ public class ProxiedRmiExporter extends RmiServiceExporter
 		Class<?> serviceInterface = registry.getServiceInterface(serviceName);
 		this.setServiceInterface(serviceInterface);
 		this.setServiceName(serviceName);
-		InterceptorProxy interceptor = new InterceptorProxy(serviceName, registry);		
-		proxy = interceptor.getObject();
-		this.setService(proxy);
+		this.setService(registry.getServiceProxy(serviceName));
 		log.debug("Exported service {}, with {} via RMI", serviceName, serviceInterface);
-	}
-	
-	public Object getObject()
-	{
-		return proxy;
 	}
 }
