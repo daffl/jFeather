@@ -3,7 +3,7 @@ package de.neyeon.feathry.dispatcher.http;
 import org.simpleframework.http.Request;
 import org.simpleframework.http.Response;
 
-public abstract class Worker implements Runnable
+public abstract class Worker extends Thread
 {
 	private final Request request;
 	private final Response response;

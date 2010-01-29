@@ -14,9 +14,14 @@
 		<property name="workers">
 			<map>
 				<entry key="xmlrpc" value-ref="xmlRpcWorkerFactory" />
+				<entry key="rest" value-ref="restWorkerFactory" />
 			</map>
 		</property>
 		<property name="threadManager" ref="threadManager" />
+	</bean>
+
+	<bean name="restWorkerFactory" class="de.neyeon.feathry.dispatcher.rest.RestWorkerFactory">
+		<property name="serviceRegistry" ref="serviceRegistry" />
 	</bean>
 	
 	<bean name="xmlRpcWorkerFactory" class="de.neyeon.feathry.dispatcher.xmlrpc.XmlRpcWorkerFactory">

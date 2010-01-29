@@ -8,6 +8,6 @@ import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 public interface WorkerFactory
 {
 	public Worker create(Request request, Response response);
-	public void setServiceRegistry(ServiceRegistry serviceDispatcher);
+	public void setServiceRegistry(ServiceRegistry serviceRegistry);
 	public ServiceRegistry getServiceRegistry();
 }

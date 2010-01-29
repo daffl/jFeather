@@ -9,26 +9,27 @@ import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
 
 public class RestWorkerFactory implements WorkerFactory
 {
+	private ServiceRegistry registry;
+	private ResourceLocator locator;
 
 	@Override
 	public Worker create(Request request, Response response)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new RestWorker(request, response);
 	}
 
 	@Override
 	public ServiceRegistry getServiceRegistry()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return registry;
 	}
 
 	@Override
-	public void setServiceRegistry(ServiceRegistry serviceDispatcher)
+	public void setServiceRegistry(ServiceRegistry registry)
 	{
-		// TODO Auto-generated method stub
-		
+		this.registry = registry;
+		// TODO find all service that implement the resource interface have
+		// resource annotation or are hibernate entities
 	}
 
 }
