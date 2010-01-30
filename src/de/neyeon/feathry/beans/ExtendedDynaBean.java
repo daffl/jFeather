@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Class that decorates any of the {@link DynaBean} implementations of the <a
- * href="http://commons.apache.org/beanutils/" target="_blank">Apach Commons
+ * href="http://commons.apache.org/beanutils/" target="_blank">Apache Commons
  * Beanutil</a> package.<br />
  * Provides additional functionality for populating the current DynaBean into to
  * a specific bean class (supporting instatiation and propagation of nested
