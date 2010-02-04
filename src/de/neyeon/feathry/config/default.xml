@@ -11,6 +11,10 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
 	default-autowire="byName">
 
+	<!-- Enable @Secured annotation
+	<sec:global-method-security jsr250-annotations="enabled" />
+	-->
+	
 	<!--
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"> <property name="url"
 		value="jdbc:mysql://localhost/gorm" /> <property name="username" value="gorm" /> <property
@@ -59,7 +63,7 @@
 	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
 	<bean id="userDetailsService" class="de.neyeon.feathry.user.UserDetailsServiceImpl" />
 	
-	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+	<bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<property name="userDetailsService" ref="userDetailsService" />
 		<property name="passwordEncoder" ref="passwordEncoder" />
 		<property name="userCache" ref="userCache" />

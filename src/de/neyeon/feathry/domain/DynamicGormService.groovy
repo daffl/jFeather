@@ -37,6 +37,7 @@ class DynamicGormService
 		if(method.returnType == void.class)
 		{
 			def obj = args[0] // Object where the method will be called on
+			// TODO args?.tail() ?
 			def argslist = args.length > 1 ? args[1..<args.length] : null
 			invoke(obj, method.name, argslist)
 		}

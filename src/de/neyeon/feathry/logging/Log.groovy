@@ -1,11 +1,11 @@
 package de.neyeon.feathry.logging;
 
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class Log
 {	
 	public Log()
 	{
-		Object.metaClass.getLog << { -> Logger.getLogger(delegate.getClass()) }		
+		Object.metaClass.getLog << { -> LoggerFactory.getLogger(delegate.getClass()) }		
 	}
 }
