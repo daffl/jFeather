@@ -1,7 +1,7 @@
-package test.de.neyeon.feathry.dispatcher.services;
+package test.org.feathry.dispatcher.services;
 
-import test.de.neyeon.feathry.dispatcher.beans.OtherTestBean;
-import test.de.neyeon.feathry.dispatcher.beans.TestBean;
+import test.org.feathry.dispatcher.beans.OtherTestBean;
+import test.org.feathry.dispatcher.beans.TestBean;
 
 public interface TestService
 {

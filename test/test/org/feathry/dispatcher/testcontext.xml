@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-autowire="byName">
+
+	<import resource="classpath*:/org/feathry/dispatcher/config/default.xml" />
+
+	<bean name="serviceRegistry" class="org.feathry.dispatcher.rpc.SpringContextRegistry">
+		<property name="namingPostfix" value="Service" />
+		<property name="interfaces">
+			<map>
+				<entry key="test" value="test.org.feathry.dispatcher.services.TestService" />
+				<entry key="testBean" value="test.org.feathry.dispatcher.services.TestBeanService" />
+			</map>
+		</property>
+	</bean>
+
+	<bean name="testService" class="test.org.feathry.dispatcher.services.TestServiceImpl" />
+
+	<bean name="interceptableService" class="test.org.feathry.dispatcher.services.InterceptableServiceImpl" />
+	
+	<bean id="rmiTestService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" depends-on="rmiRegistry">
+		<property name="serviceUrl" value="rmi://localhost:1099/test" />
+		<property name="serviceInterface" value="test.org.feathry.dispatcher.services.TestService" />
+	</bean>
+	
+	<bean name="testBeanService" class="test.org.feathry.dispatcher.services.TestBeanServiceImpl">
+	
+	</bean>
+</beans>

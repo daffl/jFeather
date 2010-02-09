@@ -1,10 +1,12 @@
-package test.de.neyeon.feathry.dispatcher.xmlrpc;
+package test.org.feathry.dispatcher.xmlrpc;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Map;
 
+import org.feathry.beans.ExtendedDynaBean;
+import org.feathry.dispatcher.ThreadManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,13 +15,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import redstone.xmlrpc.XmlRpcClient;
-import test.de.neyeon.feathry.dispatcher.beans.OtherTestBean;
-import test.de.neyeon.feathry.dispatcher.beans.TestBean;
-import de.neyeon.feathry.beans.ExtendedDynaBean;
-import de.neyeon.feathry.dispatcher.ThreadManager;
+import test.org.feathry.dispatcher.beans.OtherTestBean;
+import test.org.feathry.dispatcher.beans.TestBean;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/test/de/neyeon/feathry/dispatcher/testcontext.xml" })
+@ContextConfiguration(locations = { "/test/org/feathry/dispatcher/testcontext.xml" })
 public class XmlRpcWorkerTest
 {
 	static boolean serverIsRunning = false;

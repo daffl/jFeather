@@ -1,22 +1,22 @@
-package test.de.neyeon.feathry.dispatcher.rpc;
+package test.org.feathry.dispatcher.rpc;
 
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
+import org.feathry.dispatcher.rpc.RemoteProcedureCall;
+import org.feathry.dispatcher.rpc.ServiceRegistry;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import test.de.neyeon.feathry.dispatcher.beans.TestBean;
-import test.de.neyeon.feathry.dispatcher.services.TestService;
-import de.neyeon.feathry.dispatcher.rpc.RemoteProcedureCall;
-import de.neyeon.feathry.dispatcher.rpc.ServiceRegistry;
+import test.org.feathry.dispatcher.beans.TestBean;
+import test.org.feathry.dispatcher.services.TestService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/test/de/neyeon/feathry/dispatcher/testcontext.xml" })
+@ContextConfiguration(locations = { "/test/org/feathry/dispatcher/testcontext.xml" })
 public class SpringContextRegistryTest
 {
 	@Autowired

@@ -1,6 +1,8 @@
-package test.de.neyeon.feathry.dispatcher.rest;
+package test.org.feathry.dispatcher.rest;
 
 
+import org.feathry.dispatcher.ThreadManager;
+import org.feathry.dispatcher.http.SimpleHttpServer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,11 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.neyeon.feathry.dispatcher.ThreadManager;
-import de.neyeon.feathry.dispatcher.http.SimpleHttpServer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/test/de/neyeon/feathry/dispatcher/testcontext.xml" })
+@ContextConfiguration(locations = { "/test/org/feathry/dispatcher/testcontext.xml" })
 public class RestWorkerTest
 {
 	@Autowired
@@ -26,9 +26,13 @@ public class RestWorkerTest
 	}
 
 	@Test
-	public void testRest()
+	public void testRest() throws InterruptedException
 	{
 		threadManager.offer(httpServer);
-		while(true);
+		while(true)
+		{
+			Thread.sleep(1000);
+			Thread.yield();
+		}
 	}
 }

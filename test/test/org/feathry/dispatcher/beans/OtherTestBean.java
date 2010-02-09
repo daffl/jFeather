@@ -1,4 +1,4 @@
-package test.de.neyeon.feathry.dispatcher.beans;
+package test.org.feathry.dispatcher.beans;
 
 public class OtherTestBean
 {
