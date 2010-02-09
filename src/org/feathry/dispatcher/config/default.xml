@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean name="threadManager" class="org.feathry.dispatcher.ThreadManager">
+	</bean>
+
+	<bean name="serviceRegistry" class="org.feathry.dispatcher.rpc.SpringContextRegistry">
+		<property name="namingPostfix" value="Service" />
+	</bean>
+	
+	<bean name="httpContainer" class="org.feathry.dispatcher.http.HttpContainer">
+		<property name="workers">
+			<map>
+				<entry key="xmlrpc" value-ref="xmlRpcWorkerFactory" />
+				<entry key="rest" value-ref="restWorkerFactory" />
+			</map>
+		</property>
+		<property name="threadManager" ref="threadManager" />
+	</bean>
+
+	<bean name="restWorkerFactory" class="org.feathry.dispatcher.rest.RestWorkerFactory">
+		<property name="serviceRegistry" ref="serviceRegistry" />
+	</bean>
+	
+	<bean name="xmlRpcWorkerFactory" class="org.feathry.dispatcher.xmlrpc.XmlRpcWorkerFactory">
+		<property name="serviceRegistry" ref="serviceRegistry" />
+	</bean>
+	
+	<bean name="httpServer" class="org.feathry.dispatcher.http.SimpleHttpServer">
+		<property name="container" ref="httpContainer" />
+		<property name="port" value="8080" />
+	</bean>
+
+	 <bean name="rmiRegistry" class="org.feathry.dispatcher.rmi.RmiRegistry">
+		<constructor-arg ref="serviceRegistry" />
+		<property name="port" value="1099" />
+	</bean>
+
+</beans>
