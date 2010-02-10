@@ -14,7 +14,6 @@
 		<dependency org="net.sf.ehcache" name="ehcache" rev="1.6.2" conf="runtime"/>
 		<dependency org="junit" name="junit" rev="4.7" conf="runtime"/>
 		
-        <!--
         <dependency org="org.hibernate" name="hibernate-commons-annotations" rev="3.3.0.ga" conf="runtime"/>
         <dependency org="org.hibernate" name="hibernate-annotations" rev="3.3.0.ga" conf="runtime"/>
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.5.5" conf="runtime"/>
@@ -24,6 +23,7 @@
         <dependency org="junit" name="junit" rev="4.4" conf="runtime"/>
 		<dependency org="aspectj" name="aspectjrt" rev="1.5.4" conf="runtime"/>
         <dependency org="postgresql" name="postgresql" rev="8.3-603.jdbc3" conf="runtime"/>
+        <!--
         -->
     </dependencies>
 </ivy-module>
