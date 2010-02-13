@@ -1,4 +1,4 @@
-package org.feathry.cache;
+package org.feathry.service.cache;
 
 import groovy.lang.Closure;
 import net.sf.ehcache.CacheManager;

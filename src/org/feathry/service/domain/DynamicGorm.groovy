@@ -1,28 +1,17 @@
-package org.feathry.domain;
-
-import org.springframework.transaction.annotation.Transactional;
+package org.feathry.service.domain;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import grails.persistence.Entity;
+import java.lang.reflect.ParameterizedType 
 
-import java.util.Collection;
+import org.springframework.beans.factory.FactoryBean;
 
-import java.lang.reflect.Type;
-
-class DynamicGormService
-{	
-	def getInterface(Class<?> cls)
+class DynamicGorm<T> implements FactoryBean<T>
+{
+	private final Class<T> cls;
+	
+	DynamicGorm(Class<T> cls)
 	{
-		def map = [:]
-		cls.methods.each()
-		{ method ->
-			map."${method.name}" =
-			{ Object[] args-> 
-				this.dispatch(method, args)
-			}
-		}		
-		return map.asType(cls)
+		this.cls = cls;
 	}
 	
 	def dispatch(Method method, Object[] args)
@@ -33,7 +22,7 @@ class DynamicGormService
 		}
 		
 		// TODO: do something with methods that are already implemented
-
+		
 		if(method.returnType == void.class)
 		{
 			def obj = args[0] // Object where the method will be called on
@@ -56,8 +45,26 @@ class DynamicGormService
 		}
 	}
 	
-	def getInterface(String classname)
+	def getObject()
 	{
-		return getInterface(Class.forName(classname))
-	}	
+		def map = [:]
+		this.objectType.methods.each()
+				{ method ->
+					map."${method.name}" =
+					{ Object[] args-> 
+						this.dispatch(method, args)
+					}
+				}		
+		return map.asType(cls)
+	}
+	
+	Class<T> getObjectType()
+	{
+		return cls;
+	}
+	
+	boolean isSingleton()
+	{
+		return true;
+	}
 }

@@ -1,4 +1,4 @@
-package org.feathry.user;
+package org.feathry.service.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

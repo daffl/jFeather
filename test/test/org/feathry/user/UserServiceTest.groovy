@@ -4,11 +4,11 @@ package test.org.feathry.user;
 import static org.junit.Assert.*;
 
 
-import org.feathry.user.Authority;
+import org.feathry.service.user.Authority;
 
 
-import org.feathry.user.User;
-import org.feathry.user.UserService;
+import org.feathry.service.user.User;
+import org.feathry.service.user.UserService;
 
 
 import org.junit.Test;

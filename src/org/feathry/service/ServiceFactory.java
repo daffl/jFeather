@@ -1,7 +1,7 @@
-package org.feathry;
+package org.feathry.service;
 
-import org.feathry.cache.CacheService;
-import org.feathry.domain.DynamicGormService;
+import org.feathry.service.cache.CacheService;
+import org.feathry.service.domain.DynamicGormService;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

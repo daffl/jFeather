@@ -1,4 +1,4 @@
-package org.feathry.logging;
+package org.feathry.service.logging;
 
 import org.slf4j.LoggerFactory;
 

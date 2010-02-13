@@ -8,8 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 
-import org.feathry.user.User;
-import org.feathry.user.UserService;
+import org.feathry.service.user.User;
+import org.feathry.service.user.UserService;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)

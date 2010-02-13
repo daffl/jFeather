@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import org.feathry.ServiceFactory;
-import org.feathry.cache.CacheService;
-import org.feathry.cache.EhCacheService;
+import org.feathry.service.ServiceFactory;
+import org.feathry.service.cache.CacheService;
+import org.feathry.service.cache.EhCacheService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations=["/org/feathry/config/default.xml"])

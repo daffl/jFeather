@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import org.feathry.user.User;
+import org.feathry.service.user.User;
 
 @Entity
 class Authority // implements GrantedAuthority

@@ -1,4 +1,4 @@
-package org.feathry.cache;
+package org.feathry.service.cache;
 
 /**
  * Interface for a simple caching service.<br />

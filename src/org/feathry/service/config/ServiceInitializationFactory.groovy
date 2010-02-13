@@ -1,6 +1,6 @@
-package org.feathry.config;
+package org.feathry.service.config;
 
-import org.feathry.domain.DynamicGormService;
+import org.feathry.service.domain.DynamicGormService;
 
 class ServiceInitializationFactory
 {

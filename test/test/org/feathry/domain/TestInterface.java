@@ -2,7 +2,7 @@ package test.org.feathry.domain;
 
 import java.util.List;
 
-import org.feathry.user.User;
+import org.feathry.service.user.User;
 
 
 public interface TestInterface

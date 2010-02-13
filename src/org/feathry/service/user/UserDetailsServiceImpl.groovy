@@ -1,4 +1,4 @@
-package org.feathry.user;
+package org.feathry.service.user;
 
 import java.beans.PropertyEditor;
 import java.lang.reflect.Method;

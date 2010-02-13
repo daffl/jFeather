@@ -2,15 +2,15 @@ package test.org.feathry.domain;
 
 import static org.junit.Assert.*;
 
-import org.feathry.domain.DynamicGormService;
-import org.feathry.user.Authority;
-import org.feathry.user.User;
+import org.feathry.service.domain.DynamicGormService;
+import org.feathry.service.user.Authority;
+import org.feathry.service.user.User;
 
 import org.junit.Before;
 
 
 
-import org.feathry.ServiceFactory;
+import org.feathry.service.ServiceFactory;
 import java.lang.reflect.Method;
 
 import org.junit.Test;
