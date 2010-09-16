@@ -29,8 +29,6 @@
 	    <dependency org="org.slf4j" name="nlog4j" rev="1.2.25"/>
 	    <dependency org="commons-logging" name="commons-logging" rev="1.1.1"/>
 	    <dependency org="junit" name="junit" rev="4.7" />
-		<dependency org="commons-beanutils" name="commons-beanutils" rev="1.8.2">
-			<artifact name="commons-beanutils" ext="jar" type="javadoc" classifier="javadoc" conf="test" />
-		</dependency>		
+		<dependency org="commons-beanutils" name="commons-beanutils" rev="1.8.2" />
 	</dependencies>
 </ivy-module>
