@@ -17,7 +17,7 @@ import org.springframework.context.ApplicationContextAware;
  * Uses the injected {@link ApplicationContext} for service object retrieval.
  * @author daff
  */
-public class SpringContextRegistry implements ApplicationContextAware, ServiceRegistry
+public class ApplicationContextRegistry implements ApplicationContextAware, ServiceRegistry
 {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private String namingPostfix;

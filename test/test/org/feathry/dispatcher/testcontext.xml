@@ -5,7 +5,7 @@
 
 	<import resource="classpath*:/org/feathry/dispatcher/config/default.xml" />
 
-	<bean name="serviceRegistry" class="org.feathry.dispatcher.rpc.SpringContextRegistry">
+	<bean name="serviceRegistry" class="org.feathry.dispatcher.rpc.ApplicationContextRegistry">
 		<property name="namingPostfix" value="Service" />
 		<property name="interfaces">
 			<map>

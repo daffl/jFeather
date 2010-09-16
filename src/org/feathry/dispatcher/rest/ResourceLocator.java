@@ -11,6 +11,8 @@ import org.feathry.service.Resource;
 
 public class ResourceLocator
 {
+	private Map<Class<?>, ? extends Resource<?>> serviceMapping;
+	
 	public ResourceLocator(ServiceRegistry registry)
 	{
 		for(String name : registry.getServiceNames())
