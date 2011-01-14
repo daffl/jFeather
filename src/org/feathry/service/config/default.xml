@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:gorm="http://grails.org/schema/gorm"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd http://grails.org/schema/gorm
+	http://grails.org/schema/gorm/gorm.xsd http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+	default-autowire="byName">
+
+	<!-- Enable @Secured annotation
+	<sec:global-method-security jsr250-annotations="enabled" />
+	-->
+	
+	<!--
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"> <property name="url"
+		value="jdbc:mysql://localhost/gorm" /> <property name="username" value="gorm" /> <property
+		name="password" value="test123" /> <property name="driverClassName" value="com.mysql.jdbc.Driver"
+		/> </bean>
+	-->
+
+	<!-- <context:annotation-config/> -->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:." />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<gorm:sessionFactory base-package="org.feathry.user" data-source-ref="dataSource"
+		message-source-ref="messageSource">
+		<property name="hibernateProperties">
+			<util:map>
+				<entry key="hibernate.hbm2ddl.auto" value="create" />
+				<!--
+					<entry key="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" /> <entry
+					key="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider"
+					/> <entry key="net.sf.ehcache.configurationResourceName"
+					value="de/neyeon/feathry/config/ehcache.xml" />
+				-->
+			</util:map>
+		</property>
+	</gorm:sessionFactory>
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<!--
+			<property name="basenames"> <list> <value>format</value> <value>exceptions</value>
+			<value>windows</value> </list> </property>
+		-->
+	</bean>
+
+	<!--
+		See http://static.springsource.org/spring-security/site/docs/3.0.x/reference/core-services.html
+	-->
+	<bean id="userService" class="org.feathry.config.ServiceInitializationFactory" factory-method="getInterface">
+		<constructor-arg value="org.feathry.user.UserService" />
+	</bean>
+	
+	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
+	<bean id="userDetailsService" class="org.feathry.user.UserDetailsServiceImpl" />
+	
+	<bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userDetailsService" />
+		<property name="passwordEncoder" ref="passwordEncoder" />
+		<property name="userCache" ref="userCache" />
+	</bean>
+
+	<!-- Cache configuration configures an EhCacheService for caching -->
+	<bean id="cache" class="org.feathry.cache.EhCacheService">
+		<constructor-arg value="de/neyeon/feathry/config/ehcache.xml" />
+		<property name="defaultCacheName" value="feathry.main" />
+	</bean>
+
+	<!-- User cache for Spring Security User caching -->
+	<bean id="userCache" class="org.feathry.cache.UserCacheImpl">
+		<property name="userCacheName" value="feathry.users" />
+	</bean>
+
+	<bean class="org.feathry.logging.Log" />
+</beans>

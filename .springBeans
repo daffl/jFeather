@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
+<<<<<<< HEAD
 	<pluginVersion><![CDATA[2.3.0.200912170948-RELEASE]]></pluginVersion>
+=======
+	<pluginVersion><![CDATA[2.2.8.200911091054-RELEASE]]></pluginVersion>
+>>>>>>> a92994560ddba4cbb02abe9c818aa40395c1cf9f
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
+<<<<<<< HEAD
 		<config>src/de/neyeon/feathry/dispatcher/config/default.xml</config>
 		<config>test/test/de/neyeon/feathry/dispatcher/testcontext.xml</config>
+=======
+>>>>>>> a92994560ddba4cbb02abe9c818aa40395c1cf9f
 	</configs>
 	<configSets>
 	</configSets>

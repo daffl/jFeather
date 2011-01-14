@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>feathry-dispatcher</name>
+=======
+	<name>feathry-services</name>
+>>>>>>> a92994560ddba4cbb02abe9c818aa40395c1cf9f
 	<comment></comment>
 	<projects>
 	</projects>
@@ -30,6 +34,10 @@
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.springframework.ide.eclipse.core.springnature</nature>
+<<<<<<< HEAD
+=======
+		<nature>org.eclipse.jdt.groovy.core.groovyNature</nature>
+>>>>>>> a92994560ddba4cbb02abe9c818aa40395c1cf9f
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
